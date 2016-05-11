@@ -9,4 +9,8 @@ public abstract class Item {
         this.Disponibilidad = Disponibilidad;
         this.Identificador = Identificador;
     }
+    
+    public Item(){
+        
+    }
 }

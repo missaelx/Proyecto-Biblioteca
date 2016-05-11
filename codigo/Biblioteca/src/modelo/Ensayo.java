@@ -5,10 +5,18 @@ public class Ensayo extends Texto {
     private String lugarDePublicacion;
     private String titulo;
 
-    public Ensayo(String lugarDePublicacion, String titulo, String editorial, String fechaPublicacion, String nombreCompletoDelAutor, int numeroDeEjemplares, int numeroDePaginas, Autor m_Autor, boolean Disponibilidad, String Identificador) {
-        super(editorial, fechaPublicacion, nombreCompletoDelAutor, numeroDeEjemplares, numeroDePaginas, m_Autor, Disponibilidad, Identificador);
+    public Ensayo(String lugarDePublicacion, String titulo, String editorial, String fechaPublicacion, String nombreCompletoDelAutor, int numeroDeEjemplares, int numeroDePaginas, boolean Disponibilidad, String Identificador) {
+        super(editorial, fechaPublicacion, nombreCompletoDelAutor, numeroDeEjemplares, numeroDePaginas, Disponibilidad, Identificador);
         this.lugarDePublicacion = lugarDePublicacion;
         this.titulo = titulo;
+    }
+    
+    public Ensayo(String editorial, String fechaPublicacion, String nombreCompletoDelAutor, int numeroDeEjemplares, int numeroDePaginas, boolean Disponibilidad, String Identificador) {
+        super(editorial, fechaPublicacion, nombreCompletoDelAutor, numeroDeEjemplares, numeroDePaginas, Disponibilidad, Identificador);
+    }
+    
+    public Ensayo(){
+        
     }
 
     /**

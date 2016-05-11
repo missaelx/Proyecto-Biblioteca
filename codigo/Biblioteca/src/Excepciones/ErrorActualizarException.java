@@ -15,23 +15,16 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package accesodatos.dao;
-
-import Excepciones.ErrorActualizarException;
-import Excepciones.ErrorAlEliminarException;
-import Excepciones.ErrorAlGuardarException;
-import Excepciones.ObjetoNoEncontradoException;
-import java.util.List;
-import modelo.Texto;
-
+package Excepciones;
 
 /**
  *
  * @author missael
  */
-public interface TextoDAO {
-    public List<Texto> buscarPorIdentificador(String identificador) throws ObjetoNoEncontradoException;
-    public void eliminarPorIdenficador(String identificador) throws ObjetoNoEncontradoException, ErrorAlEliminarException;
-    public void guardar(Texto item) throws ErrorAlGuardarException;
-    public void actualizar(String identificador, Texto texto) throws ErrorActualizarException;
+public class ErrorActualizarException extends Exception{
+
+    public ErrorActualizarException(String message) {
+        super(message);
+    }
+    
 }

@@ -5,10 +5,19 @@ public class Libro extends Texto {
     private String pais;
     private String titulo;
 
-    public Libro(String pais, String titulo, String editorial, String fechaPublicacion, String nombreCompletoDelAutor, int numeroDeEjemplares, int numeroDePaginas, Autor m_Autor, boolean Disponibilidad, String Identificador) {
-        super(editorial, fechaPublicacion, nombreCompletoDelAutor, numeroDeEjemplares, numeroDePaginas, m_Autor, Disponibilidad, Identificador);
+    public Libro(String pais, String titulo, String editorial, String fechaPublicacion, String nombreCompletoDelAutor, int numeroDeEjemplares, int numeroDePaginas, boolean Disponibilidad, String Identificador) {
+        super(editorial, fechaPublicacion, nombreCompletoDelAutor, numeroDeEjemplares, numeroDePaginas,  Disponibilidad, Identificador);
         this.pais = pais;
         this.titulo = titulo;
+    }
+    
+    public Libro(String editorial, String fechaPublicacion, String nombreCompletoDelAutor, int numeroDeEjemplares, int numeroDePaginas, boolean Disponibilidad, String Identificador) {
+        super(editorial, fechaPublicacion, nombreCompletoDelAutor, numeroDeEjemplares, numeroDePaginas,  Disponibilidad, Identificador);
+        
+    }
+    
+    public Libro(){
+        
     }
 
     /**

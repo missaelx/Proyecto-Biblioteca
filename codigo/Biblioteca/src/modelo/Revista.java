@@ -5,12 +5,20 @@ public class Revista extends Texto {
     private String nombreDeLaRevista;
     private String numeroDeRevista;
 
-    public Revista(String nombreDeLaRevista, String numeroDeRevista, String editorial, String fechaPublicacion, String nombreCompletoDelAutor, int numeroDeEjemplares, int numeroDePaginas, Autor m_Autor, boolean Disponibilidad, String Identificador) {
-        super(editorial, fechaPublicacion, nombreCompletoDelAutor, numeroDeEjemplares, numeroDePaginas, m_Autor, Disponibilidad, Identificador);
+    public Revista(String nombreDeLaRevista, String numeroDeRevista, String editorial, String fechaPublicacion, String nombreCompletoDelAutor, int numeroDeEjemplares, int numeroDePaginas, boolean Disponibilidad, String Identificador) {
+        super(editorial, fechaPublicacion, nombreCompletoDelAutor, numeroDeEjemplares, numeroDePaginas, Disponibilidad, Identificador);
         this.nombreDeLaRevista = nombreDeLaRevista;
         this.numeroDeRevista = numeroDeRevista;
     }
 
+    public Revista(String editorial, String fechaPublicacion, String nombreCompletoDelAutor, int numeroDeEjemplares, int numeroDePaginas, boolean Disponibilidad, String Identificador) {
+        super(editorial, fechaPublicacion, nombreCompletoDelAutor, numeroDeEjemplares, numeroDePaginas, Disponibilidad, Identificador);
+    }
+    
+    public Revista(){
+        
+    }
+    
     /**
      * @return the nombreDeLaRevista
      */
