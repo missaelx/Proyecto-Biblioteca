@@ -6,8 +6,8 @@ public class Personal extends Persona {
 
     private String numeroDePersonal;
 
-    public Personal(String numeroDePersonal, String correo, String direccion, Date fechaDeNacimiento, String nombre, String primerApellido, String segundoApellido, String telefono) {
-        super(correo, direccion, fechaDeNacimiento, nombre, primerApellido, segundoApellido, telefono);
+    public Personal(String numeroDePersonal, String correo, String direccion, Date fechaDeNacimiento, String nombre, String telefono) {
+        super(correo, direccion, fechaDeNacimiento, nombre, telefono);
         this.numeroDePersonal = numeroDePersonal;
     }
 

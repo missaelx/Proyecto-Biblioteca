@@ -20,18 +20,16 @@ package accesodatos.dao.impl;
 import Excepciones.ErrorActualizarException;
 import Excepciones.ErrorAlEliminarException;
 import Excepciones.ErrorAlGuardarException;
+import Excepciones.ErrorConexionBaseDatosException;
 import Excepciones.ObjetoNoEncontradoException;
+import Excepciones.ObjetoSQLMalGuardadoException;
 import accesodatos.Conexion;
 import accesodatos.dao.TextoDAO;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import modelo.Autor;
 import modelo.Ensayo;
 import modelo.Libro;
 import modelo.Periodico;
@@ -55,12 +53,50 @@ public class TextoDAOImpl implements TextoDAO{
     }
     
     
-
+    //buscar no se va a implementar como lista sino por identificador
     @Override
-    public List<Texto> buscarPorIdentificador(String identificador) throws ObjetoNoEncontradoException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    public Texto buscarPorIdentificador(String identificador) throws ObjetoNoEncontradoException, ObjetoSQLMalGuardadoException, ErrorConexionBaseDatosException {
+        
+        Texto resultado = null;
+        try {
+            connection = conexion.obtenerConexion();
+            PreparedStatement sentencia;
+            sentencia = connection.prepareStatement("select * from TBTextos where id = ?");
+            sentencia.setString(1, identificador);
+            resultados = sentencia.executeQuery();
+            if(resultados.first()){
+                switch(resultados.getString("tipo")) {
+                    case "Ensayo":
+                        resultado = new Ensayo(resultados.getString("lugarDePublicacion"), resultados.getString("titulo"), resultados.getString("editorial"), resultados.getDate("fechaDePublicacion"), resultados.getString("autor"), resultados.getInt("numeroEjemplares"), resultados.getInt("numeroDePaginas"), resultados.getBoolean("disponible"), resultados.getString("id"));
+                        break;
+                    case "Periodico":
+                        resultado = new Periodico(resultados.getString("titulo"), resultados.getString("editorial"), resultados.getDate("fechaDePublicacion"), resultados.getString("autor"), resultados.getInt("numeroEjemplares"), resultados.getInt("numeroDePaginas"), resultados.getBoolean("disponible"), resultados.getString("id"));
+                        break;
+                    case "Libro":
+                        resultado = new Libro(resultados.getString("pais"), resultados.getString("titulo"), resultados.getString("editorial"), resultados.getDate("fechaDePublicacion"), resultados.getString("autor"), resultados.getInt("numeroEjemplares"), resultados.getInt("numeroDePaginas"), resultados.getBoolean("disponible"), resultados.getString("id"));
+                        break;
+                    case "Tesis":
+                        resultado = new Tesis(resultados.getString("titulo"), resultados.getString("editorial"), resultados.getDate("fechaDePublicacion"), resultados.getString("autor"), resultados.getInt("numeroEjemplares"), resultados.getInt("numeroDePaginas"), resultados.getBoolean("disponible"), resultados.getString("id"));
+                        break;
+                    case "Revista":
+                        resultado = new Revista(resultados.getString("titulo"), resultados.getString("numeroDeRevista"), resultados.getString("editorial"), resultados.getDate("fechaDePublicacion"), resultados.getString("autor"), resultados.getInt("numeroEjemplares"), resultados.getInt("numeroDePaginas"), resultados.getBoolean("disponible"), resultados.getString("id"));
+                        break;
+                    default:
+                        throw new ObjetoSQLMalGuardadoException(); //lanza esta excepcion si no coincide con niguno de los tipos predefinidos
+                }   
+            } else {
+                throw new ObjetoNoEncontradoException("No entro al first", identificador);
+            }
+        } catch (SQLException ex) {
+            throw new ObjetoNoEncontradoException("Error SQL");
+            //System.out.println(ex.getMessage());
+        } catch (NullPointerException ex){
+            throw new ErrorConexionBaseDatosException(ex.getMessage());
+        }
+        
+        
+        return resultado;
+    } 
     @Override
     public void eliminarPorIdenficador(String identificador) throws ObjetoNoEncontradoException, ErrorAlEliminarException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -76,28 +112,6 @@ public class TextoDAOImpl implements TextoDAO{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    private Texto generarTexto(String tipo, String editorial, String fechaPublicacion, String nombreCompletoDelAutor, int numeroDeEjemplares, int numeroDePaginas, boolean Disponibilidad, String Identificador) {
-        Texto resultado = null;
-        switch(tipo){
-            case "Periodico":
-                resultado = new Periodico(editorial, fechaPublicacion,nombreCompletoDelAutor, numeroDeEjemplares, numeroDePaginas, Disponibilidad, Identificador);
-                break;
-            case "Ensayo":
-                resultado = new Ensayo(editorial,fechaPublicacion,nombreCompletoDelAutor, numeroDeEjemplares, numeroDePaginas, Disponibilidad, Identificador);
-                break;
-            case "Libro":
-                resultado = new Libro(editorial,fechaPublicacion,nombreCompletoDelAutor, numeroDeEjemplares, numeroDePaginas, Disponibilidad, Identificador);
-                break;
-            case "Tesis":
-                resultado = new Tesis(editorial,fechaPublicacion,nombreCompletoDelAutor, numeroDeEjemplares, numeroDePaginas, Disponibilidad, Identificador);
-                break;
-            case "Revista":
-                resultado = new Revista(editorial,fechaPublicacion,nombreCompletoDelAutor, numeroDeEjemplares, numeroDePaginas, Disponibilidad, Identificador);
-                break;
-            default:
-                resultado = new Texto();
-        }
-        return resultado;
-    }
+    
     
 }

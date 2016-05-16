@@ -1,16 +1,49 @@
 package modelo;
 
+import java.util.Objects;
+
 public abstract class Item {
 
-    private boolean Disponibilidad;
-    private String Identificador;
+    protected boolean disponibilidad;
+    protected String identificador;
 
     public Item(boolean Disponibilidad, String Identificador) {
-        this.Disponibilidad = Disponibilidad;
-        this.Identificador = Identificador;
+        this.disponibilidad = Disponibilidad;
+        this.identificador = Identificador;
     }
     
     public Item(){
         
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 17 * hash + (this.disponibilidad ? 1 : 0);
+        hash = 17 * hash + Objects.hashCode(this.identificador);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Item other = (Item) obj;
+        if (this.disponibilidad != other.disponibilidad) {
+            return false;
+        }
+        if (!Objects.equals(this.identificador, other.identificador)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

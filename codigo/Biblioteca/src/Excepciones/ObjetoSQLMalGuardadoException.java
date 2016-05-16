@@ -21,32 +21,13 @@ package Excepciones;
  *
  * @author missael
  */
-public class ObjetoNoEncontradoException extends Exception{
-    
-    private String criterioBusqueda;
+public class ObjetoSQLMalGuardadoException extends Exception{
 
-    public ObjetoNoEncontradoException(String message, String criterioBusqueda) {
-        super(message);
-        this.criterioBusqueda = criterioBusqueda;
+    public ObjetoSQLMalGuardadoException() {
     }
 
-    public ObjetoNoEncontradoException() {
-        
-    }
-
-    public ObjetoNoEncontradoException(String message) {
+    public ObjetoSQLMalGuardadoException(String message) {
         super(message);
     }
-    
-    
-
-    /**
-     * @return the criterioBusqueda
-     */
-    public String getCriterioBusqueda() {
-        return criterioBusqueda;
-    }
-    
-    
     
 }

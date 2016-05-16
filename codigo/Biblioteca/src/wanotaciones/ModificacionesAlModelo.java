@@ -15,38 +15,18 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
-package Excepciones;
+package wanotaciones;
 
 /**
  *
  * @author missael
  */
-public class ObjetoNoEncontradoException extends Exception{
+public class ModificacionesAlModelo {
+    /*
     
-    private String criterioBusqueda;
-
-    public ObjetoNoEncontradoException(String message, String criterioBusqueda) {
-        super(message);
-        this.criterioBusqueda = criterioBusqueda;
-    }
-
-    public ObjetoNoEncontradoException() {
-        
-    }
-
-    public ObjetoNoEncontradoException(String message) {
-        super(message);
-    }
-    
-    
-
-    /**
-     * @return the criterioBusqueda
-     */
-    public String getCriterioBusqueda() {
-        return criterioBusqueda;
-    }
+    se eliminaron las clases de alumno y profesor por poseer solo un atributo redundante de su identificador de prestatario
     
     
     
+    */
 }

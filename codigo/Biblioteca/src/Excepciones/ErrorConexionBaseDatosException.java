@@ -21,32 +21,14 @@ package Excepciones;
  *
  * @author missael
  */
-public class ObjetoNoEncontradoException extends Exception{
-    
-    private String criterioBusqueda;
+public class ErrorConexionBaseDatosException extends Exception{
 
-    public ObjetoNoEncontradoException(String message, String criterioBusqueda) {
-        super(message);
-        this.criterioBusqueda = criterioBusqueda;
+    public ErrorConexionBaseDatosException() {
     }
 
-    public ObjetoNoEncontradoException() {
-        
-    }
-
-    public ObjetoNoEncontradoException(String message) {
+    public ErrorConexionBaseDatosException(String message) {
         super(message);
     }
-    
-    
-
-    /**
-     * @return the criterioBusqueda
-     */
-    public String getCriterioBusqueda() {
-        return criterioBusqueda;
-    }
-    
     
     
 }

@@ -17,23 +17,15 @@
  */
 package accesodatos.dao;
 
-import Excepciones.ErrorActualizarException;
-import Excepciones.ErrorAlEliminarException;
-import Excepciones.ErrorAlGuardarException;
 import Excepciones.ErrorConexionBaseDatosException;
 import Excepciones.ObjetoNoEncontradoException;
 import Excepciones.ObjetoSQLMalGuardadoException;
-import java.util.List;
-import modelo.Texto;
-
+import modelo.Prestatario;
 
 /**
  *
  * @author missael
  */
-public interface TextoDAO {
-    public Texto buscarPorIdentificador(String identificador) throws ObjetoNoEncontradoException, ObjetoSQLMalGuardadoException, ErrorConexionBaseDatosException;
-    public void eliminarPorIdenficador(String identificador) throws ObjetoNoEncontradoException, ErrorAlEliminarException;
-    public void guardar(Texto item) throws ErrorAlGuardarException;
-    public void actualizar(String identificador, Texto texto) throws ErrorActualizarException;
+public interface PrestatarioDAO {
+    public Prestatario buscarPorIdentificador(String identificador) throws ObjetoNoEncontradoException, ObjetoSQLMalGuardadoException, ErrorConexionBaseDatosException;
 }

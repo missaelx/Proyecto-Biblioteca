@@ -4,21 +4,17 @@ import java.sql.Date;
 
 public abstract class Persona {
 
-    private String correo;
-    private String direccion;
-    private Date fechaDeNacimiento;
-    private String nombre;
-    private String primerApellido;
-    private String segundoApellido;
-    private String telefono;
+    protected String correo;
+    protected String direccion;
+    protected Date fechaDeNacimiento;
+    protected String nombre;
+    protected String telefono;
 
-    public Persona(String correo, String direccion, Date fechaDeNacimiento, String nombre, String primerApellido, String segundoApellido, String telefono) {
+    public Persona(String correo, String direccion, Date fechaDeNacimiento, String nombre, String telefono) {
         this.correo = correo;
         this.direccion = direccion;
         this.fechaDeNacimiento = fechaDeNacimiento;
         this.nombre = nombre;
-        this.primerApellido = primerApellido;
-        this.segundoApellido = segundoApellido;
         this.telefono = telefono;
     }
 
@@ -78,34 +74,7 @@ public abstract class Persona {
         this.nombre = nombre;
     }
 
-    /**
-     * @return the primerApellido
-     */
-    public String getPrimerApellido() {
-        return primerApellido;
-    }
-
-    /**
-     * @param primerApellido the primerApellido to set
-     */
-    public void setPrimerApellido(String primerApellido) {
-        this.primerApellido = primerApellido;
-    }
-
-    /**
-     * @return the segundoApellido
-     */
-    public String getSegundoApellido() {
-        return segundoApellido;
-    }
-
-    /**
-     * @param segundoApellido the segundoApellido to set
-     */
-    public void setSegundoApellido(String segundoApellido) {
-        this.segundoApellido = segundoApellido;
-    }
-
+    
     /**
      * @return the telefono
      */
