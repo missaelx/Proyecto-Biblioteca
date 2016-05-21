@@ -1,3 +1,9 @@
+/*
+Autor:Missael Hernandez Rosado
+Fecha de creación: 07/05/2016
+Fecha de Modificación:09/05/2016
+Descripción: Esta clase solo modela los atributos de una pelicula
+*/
 package modelo;
 
 import java.sql.Date;

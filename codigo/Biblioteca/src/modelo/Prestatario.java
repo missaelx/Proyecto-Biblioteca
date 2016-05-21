@@ -1,3 +1,9 @@
+/*
+Autor:Missael Hernandez Rosado
+Fecha de creación: 07/05/2016
+Fecha de Modificación:13/05/2016
+Descripción: Esta clase modela los atributos de un prestatario
+*/
 package modelo;
 
 import java.sql.Date;
@@ -76,7 +82,7 @@ public class Prestatario extends Persona {
         hash = 47 * hash + Objects.hashCode(this.identificador);
         hash = 47 * hash + Objects.hashCode(this.tipo);
         hash = 47 * hash + this.numeroDeTextos;
-        hash = 47 * hash + this.numeroDeTextoPrestados;
+        hash = 47 * hash + this.getNumeroDeTextoPrestados();
         hash = 47 * hash + Objects.hashCode(this.vigencia);
         return hash;
     }
@@ -109,7 +115,7 @@ public class Prestatario extends Persona {
             return false;
         }
         
-        if (this.numeroDeTextoPrestados != other.numeroDeTextoPrestados) {
+        if (this.getNumeroDeTextoPrestados() != other.getNumeroDeTextoPrestados()) {
             return false;
         }
         if (!Objects.equals(this.identificador, other.identificador)) {
@@ -122,6 +128,20 @@ public class Prestatario extends Persona {
             return false;
         }
         return true;
+    }
+
+    /**
+     * @return the numeroDeTextoPrestados
+     */
+    public int getNumeroDeTextoPrestados() {
+        return numeroDeTextoPrestados;
+    }
+
+    /**
+     * @param numeroDeTextoPrestados the numeroDeTextoPrestados to set
+     */
+    public void setNumeroDeTextoPrestados(int numeroDeTextoPrestados) {
+        this.numeroDeTextoPrestados = numeroDeTextoPrestados;
     }
     
     

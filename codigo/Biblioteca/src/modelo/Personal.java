@@ -1,14 +1,22 @@
+/*
+Autor:Missael Hernandez Rosado
+Fecha de creación: 07/05/2016
+Fecha de Modificación:09/05/2016
+Descripción: Esta clase solo modela los atributos del personal
+*/
 package modelo;
 
 import java.sql.Date;
+import java.util.Objects;
 
 public class Personal extends Persona {
 
     private String numeroDePersonal;
-
-    public Personal(String numeroDePersonal, String correo, String direccion, Date fechaDeNacimiento, String nombre, String telefono) {
+    private String tipo; //administrador o bibliotecario
+    public Personal(String numeroDePersonal, String correo, String direccion, Date fechaDeNacimiento, String nombre, String telefono, String tipo) {
         super(correo, direccion, fechaDeNacimiento, nombre, telefono);
         this.numeroDePersonal = numeroDePersonal;
+        this.tipo = tipo;
     }
 
     /**
@@ -23,6 +31,65 @@ public class Personal extends Persona {
      */
     public void setNumeroDePersonal(String numeroDePersonal) {
         this.numeroDePersonal = numeroDePersonal;
+    }
+
+    /**
+     * @return the tipo
+     */
+    public String getTipo() {
+        return tipo;
+    }
+
+    /**
+     * @param tipo the tipo to set
+     */
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 53 * hash + Objects.hashCode(this.numeroDePersonal);
+        hash = 53 * hash + Objects.hashCode(this.tipo);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Personal other = (Personal) obj;
+        if (!Objects.equals(this.correo, other.correo)) {
+            return false;
+        }
+        if (!Objects.equals(this.direccion, other.direccion)) {
+            return false;
+        }
+        if (!Objects.equals(this.fechaDeNacimiento, other.fechaDeNacimiento)) {
+            return false;
+        }
+        if (!Objects.equals(this.nombre, other.nombre)) {
+            return false;
+        }
+        if (!Objects.equals(this.telefono, other.telefono)) {
+            return false;
+        }
+        
+        if (!Objects.equals(this.numeroDePersonal, other.numeroDePersonal)) {
+            return false;
+        }
+        if (!Objects.equals(this.tipo, other.tipo)) {
+            return false;
+        }
+        return true;
     }
     
     

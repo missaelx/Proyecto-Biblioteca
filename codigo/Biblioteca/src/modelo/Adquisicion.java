@@ -1,3 +1,9 @@
+/*
+Autor:Missael Hernandez Rosado
+Fecha de creación: 07/05/2016
+Fecha de Modificación:09/05/2016
+Descripción: Esta clase solo modela los atributos de una adquisicion
+*/
 package modelo;
 
 public class Adquisicion {
@@ -17,48 +23,55 @@ public class Adquisicion {
     
 
     /**
-     * @return the fechadeAdquisicion
+     * Este metodo retorna la fecha de adquisicio que representa el dia que llego el item a la biblioteca
+     * @return la fechadeAdquisicion
      */
     public String getFechadeAdquisicion() {
         return fechadeAdquisicion;
     }
 
     /**
-     * @param fechadeAdquisicion the fechadeAdquisicion to set
+     * Este metodo sirve para colocar la fecha de adquisicion del item.
+     * @param fechadeAdquisicion para colocar fechadeAdquisicion 
      */
     public void setFechadeAdquisicion(String fechadeAdquisicion) {
         this.fechadeAdquisicion = fechadeAdquisicion;
     }
 
     /**
-     * @return the metodoDeAdquisicion
+     * Este metodo retorna el metodo de adquisicion, falso si fue donado y true si fue comprado.
+     * @return el metodoDeAdquisicion
      */
     public boolean isMetodoDeAdquisicion() {
         return metodoDeAdquisicion;
     }
 
     /**
-     * @param metodoDeAdquisicion the metodoDeAdquisicion to set
+     * Este metodo sirve para colocar el metodo de adquisicion,falso si fue donado y true si fue comprado.
+     * @param metodoDeAdquisicion para colocar metodoDeAdquisicion 
      */
     public void setMetodoDeAdquisicion(boolean metodoDeAdquisicion) {
         this.metodoDeAdquisicion = metodoDeAdquisicion;
     }
 
     /**
-     * @return the m_item
+     * Este metodo retorna el objeto item de la adquisicion
+     * @return el m_item
      */
     public Item getM_item() {
         return m_item;
     }
 
     /**
-     * @param m_item the m_item to set
+     * Este metodo sirve para colocar el item de la adquisicion
+     * @param m_item para colocar m_item 
      */
     public void setM_item(Item m_item) {
         this.m_item = m_item;
     }
 
     /**
+     * Este metodo retorna el objeto donacion si es que tiene. 
      * @return the m_Donacion
      */
     public Donacion getM_Donacion() {
@@ -66,7 +79,8 @@ public class Adquisicion {
     }
 
     /**
-     * @param m_Donacion the m_Donacion to set
+     * Este metodo sirve para colocar la donacion
+     * @param m_Donacion para colocar m_Donacion 
      */
     public void setM_Donacion(Donacion m_Donacion) {
         this.m_Donacion = m_Donacion;

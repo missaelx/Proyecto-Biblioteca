@@ -141,7 +141,7 @@ public class TextoDAOImplTest {
         fail("The test case is a prototype.");
     }
 
-    @Test
+    //@Test 
     public void testBuscarPorIdentificador() throws Exception {
         System.out.println("buscarPorIdentificador");
         String identificador = "";
@@ -149,7 +149,6 @@ public class TextoDAOImplTest {
         Texto expResult = null;
         Texto result = instance.buscarPorIdentificador(identificador);
         assertEquals(expResult, result);
-        fail("The test case is a prototype.");
     }
     
 }
