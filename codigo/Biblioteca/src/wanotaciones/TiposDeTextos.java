@@ -9,5 +9,5 @@ package wanotaciones;
  * @author missael
  */
 public enum TiposDeTextos {
-    Periodico, Ensayo, Libro, Tesis, Revista; //nombres con los que se almacenaran en la base de datos 
+    PERIODICO, ENSAYO, LIBRO, TESIS, REVISTA; //nombres con los que se almacenaran en la base de datos 
 }
