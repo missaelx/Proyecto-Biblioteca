@@ -1,418 +1,470 @@
--- phpMyAdmin SQL Dump
--- version 4.4.0
--- http://www.phpmyadmin.net
---
--- Servidor: localhost:3030
--- Tiempo de generación: 21-05-2016 a las 12:11:28
--- Versión del servidor: 5.5.42
--- Versión de PHP: 5.6.7
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-
---
--- Base de datos: `mydb`
---
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `TBAdeudo`
---
-
-CREATE TABLE `TBAdeudo` (
-  `idAdeudo` int(11) NOT NULL,
-  `fechaInicial` datetime DEFAULT NULL,
-  `monto` float DEFAULT NULL,
-  `tipo` tinyint(1) DEFAULT NULL,
-  `idPrestamo` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `TBAdquisicion`
---
-
-CREATE TABLE `TBAdquisicion` (
-  `fecha` datetime NOT NULL,
-  `fueDonado` tinyint(1) DEFAULT NULL,
-  `idDonacion` int(11) DEFAULT NULL,
-  `idItem` varchar(50) DEFAULT NULL,
-  `idAdquisicion` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `TBBiblioteca`
---
-
-CREATE TABLE `TBBiblioteca` (
-  `nombre` varchar(100) DEFAULT NULL,
-  `direccion` varchar(150) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `TBCondonacion`
---
-
-CREATE TABLE `TBCondonacion` (
-  `idAdeudo` int(11) NOT NULL,
-  `autoridad` varchar(45) DEFAULT NULL,
-  `justificacion` text
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `TBDonacion`
---
-
-CREATE TABLE `TBDonacion` (
-  `id` int(11) NOT NULL,
-  `fecha` date DEFAULT NULL,
-  `esMonetario` tinyint(1) DEFAULT NULL,
-  `descripcion` varchar(45) DEFAULT NULL,
-  `donador` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `TBDonador`
---
-
-CREATE TABLE `TBDonador` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(100) DEFAULT NULL,
-  `correo` varchar(45) DEFAULT NULL,
-  `direccion` varchar(45) DEFAULT NULL,
-  `telefono` varchar(45) DEFAULT NULL,
-  `tipo` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `TBMultimedia`
---
-
-CREATE TABLE `TBMultimedia` (
-  `id` varchar(50) NOT NULL,
-  `tipo` varchar(45) DEFAULT NULL,
-  `titulo` varchar(45) DEFAULT NULL,
-  `areaEducativa` varchar(45) DEFAULT NULL,
-  `narrador` varchar(45) DEFAULT NULL,
-  `nombreDelLibro` varchar(45) DEFAULT NULL,
-  `plataforma` varchar(45) DEFAULT NULL,
-  `version` varchar(45) DEFAULT NULL,
-  `año` varchar(45) DEFAULT NULL,
-  `director` varchar(45) DEFAULT NULL,
-  `pais` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `TBPersonal`
---
-
-CREATE TABLE `TBPersonal` (
-  `numeroPersonal` varchar(50) NOT NULL,
-  `nombre` varchar(45) DEFAULT NULL,
-  `direccion` varchar(100) DEFAULT NULL,
-  `fechaNacimiento` date DEFAULT NULL,
-  `tipo` varchar(45) DEFAULT NULL,
-  `telefono` varchar(45) DEFAULT NULL,
-  `correo` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `TBPersonal`
---
-
-INSERT INTO `TBPersonal` (`numeroPersonal`, `nombre`, `direccion`, `fechaNacimiento`, `tipo`, `telefono`, `correo`) VALUES
-('10', 'Juan Carlos Perez', 'Coder Dojo FEI', '2016-05-02', 'BIBLIOTECARIO', '2281818181', 'elrevo@gmail.com');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `TBPrestamo`
---
-
-CREATE TABLE `TBPrestamo` (
-  `idPrestamo` int(11) NOT NULL,
-  `estado` varchar(45) DEFAULT NULL,
-  `vencimiento` datetime DEFAULT NULL,
-  `TBPrestatario_numeroPersonal` varchar(50) NOT NULL,
-  `TBPersonal_numeroPersonal` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `TBPrestatario`
---
-
-CREATE TABLE `TBPrestatario` (
-  `numeroPersonal` varchar(50) NOT NULL,
-  `nombre` varchar(45) DEFAULT NULL,
-  `direccion` varchar(100) DEFAULT NULL,
-  `fechaNacimiento` date DEFAULT NULL,
-  `tipo` varchar(45) DEFAULT NULL,
-  `telefono` varchar(45) DEFAULT NULL,
-  `correo` varchar(45) DEFAULT NULL,
-  `textoPrestados` int(11) NOT NULL DEFAULT '0',
-  `vigencia` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `TBPrestatario`
---
-
-INSERT INTO `TBPrestatario` (`numeroPersonal`, `nombre`, `direccion`, `fechaNacimiento`, `tipo`, `telefono`, `correo`, `textoPrestados`, `vigencia`) VALUES
-('1', 'Missael Hernandez', 'Lejos de Xalapa', '1996-03-09', 'Alumno', '2218717935', 'missaelxp@gmail.com', 0, '2016-05-10'),
-('2', 'Andres Meza', 'Cerca de Xalapa', '1994-04-22', 'Maestro', '2128172187', 'techmeza@gmail.com', 5, '2016-05-10');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `TBReportes`
---
-
-CREATE TABLE `TBReportes` (
-  `id` int(11) NOT NULL,
-  `fechaInicio` date DEFAULT NULL,
-  `fechaFinal` date DEFAULT NULL,
-  `tipo` varchar(45) DEFAULT NULL,
-  `archivo` blob
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `TBReservacion`
---
-
-CREATE TABLE `TBReservacion` (
-  `idReservacion` int(11) NOT NULL,
-  `idPrestatario` varchar(50) DEFAULT NULL,
-  `idItem` varchar(50) DEFAULT NULL,
-  `fechaVencimiento` datetime DEFAULT NULL,
-  `TBPrestatario_numeroPersonal` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `TBTextoEjemplares`
---
-
-CREATE TABLE `TBTextoEjemplares` (
-  `idEjemplar` varchar(50) NOT NULL,
-  `idDescripcion` varchar(50) DEFAULT NULL,
-  `idAdquisicion` int(11) DEFAULT NULL,
-  `disponible` tinyint(1) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `TBTextos`
---
-
-CREATE TABLE `TBTextos` (
-  `id` varchar(50) NOT NULL,
-  `tipo` varchar(45) DEFAULT NULL,
-  `titulo` varchar(45) DEFAULT NULL,
-  `disponible` tinyint(1) DEFAULT NULL,
-  `editorial` varchar(45) DEFAULT NULL,
-  `fechaDePublicacion` date DEFAULT NULL,
-  `numeroEjemplares` int(11) DEFAULT NULL,
-  `numeroDePaginas` varchar(45) DEFAULT NULL,
-  `autor` varchar(100) DEFAULT NULL,
-  `pais` varchar(45) DEFAULT NULL,
-  `numeroDePublicacion` varchar(10) DEFAULT NULL,
-  `lugarDePublicacion` varchar(45) DEFAULT NULL,
-  `numeroDeRevista` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Volcado de datos para la tabla `TBTextos`
---
-
-INSERT INTO `TBTextos` (`id`, `tipo`, `titulo`, `disponible`, `editorial`, `fechaDePublicacion`, `numeroEjemplares`, `numeroDePaginas`, `autor`, `pais`, `numeroDePublicacion`, `lugarDePublicacion`, `numeroDeRevista`) VALUES
-('1', 'Revista', 'Playboy', 1, 'Jeft', '2016-05-03', 10, '54', 'Missael', 'Mexico', '3', 'Mexico DF', '5'),
-('2', 'Libro', 'UML in color', 1, 'Trillas', '2016-05-18', 2, '390', 'Color', 'Estados Unidos', '3', '2', NULL),
-('3', 'Tesis', 'Missaelitos en el ambiente', 1, 'Missael', '2016-05-03', 5, '132', 'Missael Hernandez Rosado', 'Mexico', '4', 'UV', NULL),
-('4', 'Periodico', 'AZ', 1, 'Salamanca', '2016-05-01', 1, '42', 'Missael', 'Canada', '3', 'Xalapa', NULL),
-('5', 'Ensayo', 'El poder', 1, 'UV', '2016-05-02', 2, '20', 'Missael', 'Mexico', '13', 'Xalapa', NULL);
-
---
--- Índices para tablas volcadas
---
-
---
--- Indices de la tabla `TBAdeudo`
---
-ALTER TABLE `TBAdeudo`
-  ADD PRIMARY KEY (`idAdeudo`);
-
---
--- Indices de la tabla `TBAdquisicion`
---
-ALTER TABLE `TBAdquisicion`
-  ADD PRIMARY KEY (`idAdquisicion`),
-  ADD KEY `idDonacion_idx` (`idDonacion`);
-
---
--- Indices de la tabla `TBCondonacion`
---
-ALTER TABLE `TBCondonacion`
-  ADD PRIMARY KEY (`idAdeudo`),
-  ADD KEY `idAdeudo_idx` (`idAdeudo`);
-
---
--- Indices de la tabla `TBDonacion`
---
-ALTER TABLE `TBDonacion`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `donador_idx` (`donador`);
-
---
--- Indices de la tabla `TBDonador`
---
-ALTER TABLE `TBDonador`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `TBMultimedia`
---
-ALTER TABLE `TBMultimedia`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `TBPersonal`
---
-ALTER TABLE `TBPersonal`
-  ADD PRIMARY KEY (`numeroPersonal`);
-
---
--- Indices de la tabla `TBPrestamo`
---
-ALTER TABLE `TBPrestamo`
-  ADD PRIMARY KEY (`idPrestamo`),
-  ADD KEY `fk_Prestamo_TBPrestatario1_idx` (`TBPrestatario_numeroPersonal`),
-  ADD KEY `fk_Prestamo_TBPersonal1_idx` (`TBPersonal_numeroPersonal`);
-
---
--- Indices de la tabla `TBPrestatario`
---
-ALTER TABLE `TBPrestatario`
-  ADD PRIMARY KEY (`numeroPersonal`);
-
---
--- Indices de la tabla `TBReportes`
---
-ALTER TABLE `TBReportes`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `TBReservacion`
---
-ALTER TABLE `TBReservacion`
-  ADD PRIMARY KEY (`idReservacion`),
-  ADD KEY `fk_TBReservacion_TBPrestatario1_idx` (`TBPrestatario_numeroPersonal`);
-
---
--- Indices de la tabla `TBTextoEjemplares`
---
-ALTER TABLE `TBTextoEjemplares`
-  ADD PRIMARY KEY (`idEjemplar`),
-  ADD KEY `idAdquisicion_idx` (`idAdquisicion`),
-  ADD KEY `idDescripcion_idx` (`idDescripcion`);
-
---
--- Indices de la tabla `TBTextos`
---
-ALTER TABLE `TBTextos`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `TBAdeudo`
---
-ALTER TABLE `TBAdeudo`
-  MODIFY `idAdeudo` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `TBCondonacion`
---
-ALTER TABLE `TBCondonacion`
-  MODIFY `idAdeudo` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `TBDonacion`
---
-ALTER TABLE `TBDonacion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `TBDonador`
---
-ALTER TABLE `TBDonador`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `TBPrestamo`
---
-ALTER TABLE `TBPrestamo`
-  MODIFY `idPrestamo` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT de la tabla `TBReportes`
---
-ALTER TABLE `TBReportes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- Restricciones para tablas volcadas
---
-
---
--- Filtros para la tabla `TBAdquisicion`
---
-ALTER TABLE `TBAdquisicion`
-  ADD CONSTRAINT `idDonacion` FOREIGN KEY (`idDonacion`) REFERENCES `TBDonacion` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `TBCondonacion`
---
-ALTER TABLE `TBCondonacion`
-  ADD CONSTRAINT `idAdeudo` FOREIGN KEY (`idAdeudo`) REFERENCES `TBAdeudo` (`idAdeudo`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `TBDonacion`
---
-ALTER TABLE `TBDonacion`
-  ADD CONSTRAINT `donador` FOREIGN KEY (`donador`) REFERENCES `TBDonador` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `TBPrestamo`
---
-ALTER TABLE `TBPrestamo`
-  ADD CONSTRAINT `fk_Prestamo_TBPersonal1` FOREIGN KEY (`TBPersonal_numeroPersonal`) REFERENCES `TBPersonal` (`numeroPersonal`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_Prestamo_TBPrestatario1` FOREIGN KEY (`TBPrestatario_numeroPersonal`) REFERENCES `TBPrestatario` (`numeroPersonal`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `TBReservacion`
---
-ALTER TABLE `TBReservacion`
-  ADD CONSTRAINT `fk_TBReservacion_TBPrestatario1` FOREIGN KEY (`TBPrestatario_numeroPersonal`) REFERENCES `TBPrestatario` (`numeroPersonal`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Filtros para la tabla `TBTextoEjemplares`
---
-ALTER TABLE `TBTextoEjemplares`
-  ADD CONSTRAINT `idAdquisicion` FOREIGN KEY (`idAdquisicion`) REFERENCES `TBAdquisicion` (`idAdquisicion`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `idDescripcion` FOREIGN KEY (`idDescripcion`) REFERENCES `TBTextos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+-- MySQL Script generated by MySQL Workbench
+-- Sat May 21 12:39:25 2016
+-- Model: New Model    Version: 1.0
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
+USE `mydb` ;
+
+-- -----------------------------------------------------
+-- Table `mydb`.`TBTiposPersonal`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`TBTiposPersonal` (
+  `idTipo` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '',
+  `nombre` VARCHAR(45) NOT NULL COMMENT '',
+  PRIMARY KEY (`idTipo`)  COMMENT '')
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`TBPersonal`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`TBPersonal` (
+  `idPersonal` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '',
+  `numeroPersonal` VARCHAR(50) NOT NULL COMMENT '',
+  `nombre` VARCHAR(45) NULL DEFAULT NULL COMMENT '',
+  `direccion` VARCHAR(255) NULL DEFAULT NULL COMMENT '',
+  `fechaNacimiento` DATE NULL DEFAULT NULL COMMENT '',
+  `tipo` INT UNSIGNED NOT NULL COMMENT '',
+  `telefono` VARCHAR(15) NULL DEFAULT NULL COMMENT '',
+  `correo` VARCHAR(255) NULL DEFAULT NULL COMMENT '',
+  `creadoEn` DATETIME NULL COMMENT '',
+  `actualizadoEn` DATETIME NULL COMMENT '',
+  PRIMARY KEY (`idPersonal`)  COMMENT '',
+  CONSTRAINT `tipo`
+    FOREIGN KEY (`tipo`)
+    REFERENCES `mydb`.`TBTiposPersonal` (`idTipo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`TBTiposPrestatarios`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`TBTiposPrestatarios` (
+  `idTipoPrestatario` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '',
+  `nombre` VARCHAR(50) NOT NULL COMMENT '',
+  PRIMARY KEY (`idTipoPrestatario`)  COMMENT '')
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`TBPrestatarios`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`TBPrestatarios` (
+  `idPrestatario` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '',
+  `numeroPersonal` VARCHAR(50) NOT NULL COMMENT '',
+  `nombre` VARCHAR(45) NULL DEFAULT NULL COMMENT '',
+  `direccion` VARCHAR(255) NULL DEFAULT NULL COMMENT '',
+  `fechaNacimiento` DATE NULL DEFAULT NULL COMMENT '',
+  `tipo` INT UNSIGNED NOT NULL COMMENT '',
+  `telefono` VARCHAR(15) NULL DEFAULT NULL COMMENT '',
+  `correo` VARCHAR(255) NULL DEFAULT NULL COMMENT '',
+  `vigencia` DATE NOT NULL COMMENT '',
+  `creadoEn` DATETIME NULL COMMENT '',
+  `actualizadoEn` DATETIME NULL COMMENT '',
+  PRIMARY KEY (`idPrestatario`)  COMMENT '',
+  CONSTRAINT `tipo`
+    FOREIGN KEY (`tipo`)
+    REFERENCES `mydb`.`TBTiposPrestatarios` (`idTipoPrestatario`)
+    ON DELETE NO ACTION
+    ON UPDATE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`TBPrestamos`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`TBPrestamos` (
+  `idPrestamo` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '',
+  `fechaVencimiento` DATETIME NOT NULL COMMENT '',
+  `fechaSolicitudPrestamo` DATETIME NOT NULL COMMENT '',
+  `fechaEntrega` DATETIME NULL COMMENT '',
+  `idPersonal` INT UNSIGNED NOT NULL COMMENT '',
+  `idPrestatario` INT UNSIGNED NOT NULL COMMENT '',
+  PRIMARY KEY (`idPrestamo`)  COMMENT '',
+  CONSTRAINT `idPersonal`
+    FOREIGN KEY (`idPersonal`)
+    REFERENCES `mydb`.`TBPersonal` (`idPersonal`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `idPrestatario`
+    FOREIGN KEY (`idPrestatario`)
+    REFERENCES `mydb`.`TBPrestatarios` (`idPrestatario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`TBTiposMonedas`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`TBTiposMonedas` (
+  `idTipo` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '',
+  `nombre` VARCHAR(45) NULL COMMENT '',
+  PRIMARY KEY (`idTipo`)  COMMENT '')
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`TBAdeudos`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`TBAdeudos` (
+  `idAdeudo` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '',
+  `fechaInicial` DATETIME NOT NULL COMMENT '',
+  `fechaFinal` DATETIME NULL COMMENT '',
+  `monto` DECIMAL(2) NULL DEFAULT NULL COMMENT '',
+  `idMonedaAdeudo` INT UNSIGNED NULL COMMENT '',
+  `tipo` TINYINT(1) NULL DEFAULT NULL COMMENT '',
+  `idPrestamo` INT(11) NULL DEFAULT NULL COMMENT '',
+  PRIMARY KEY (`idAdeudo`)  COMMENT '',
+  CONSTRAINT `idPrestamo`
+    FOREIGN KEY (`idPrestamo` , `idMonedaAdeudo`)
+    REFERENCES `mydb`.`TBPrestamos` (`idPrestamo` , `idPrestamo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `idMonedaAdeudo`
+    FOREIGN KEY ()
+    REFERENCES `mydb`.`TBTiposMonedas` ()
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`TBTiposDonadores`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`TBTiposDonadores` (
+  `idTipo` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '',
+  `nombre` VARCHAR(45) NULL COMMENT '',
+  PRIMARY KEY (`idTipo`)  COMMENT '')
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`TBDonadores`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`TBDonadores` (
+  `idDonador` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '',
+  `nombre` VARCHAR(100) NULL DEFAULT NULL COMMENT '',
+  `correo` VARCHAR(255) NULL DEFAULT NULL COMMENT '',
+  `direccion` VARCHAR(255) NULL DEFAULT NULL COMMENT '',
+  `telefono` VARCHAR(15) NULL DEFAULT NULL COMMENT '',
+  `tipo` INT UNSIGNED NOT NULL COMMENT '',
+  PRIMARY KEY (`idDonador`)  COMMENT '',
+  CONSTRAINT `tipo`
+    FOREIGN KEY (`tipo`)
+    REFERENCES `mydb`.`TBTiposDonadores` (`idTipo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`TBDonaciones`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`TBDonaciones` (
+  `idDonacion` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '',
+  `fecha` DATE NULL DEFAULT NULL COMMENT '',
+  `esMonetario` TINYINT(1) NULL DEFAULT NULL COMMENT '',
+  `descripcion` VARCHAR(45) NULL DEFAULT NULL COMMENT '',
+  `donador` INT(11) NULL DEFAULT NULL COMMENT '',
+  PRIMARY KEY (`idDonacion`)  COMMENT '',
+  CONSTRAINT `donador`
+    FOREIGN KEY (`donador`)
+    REFERENCES `mydb`.`TBDonadores` (`idDonador`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`TBAdquisiciones`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`TBAdquisiciones` (
+  `idAdquisicion` INT(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '',
+  `fecha` DATETIME NOT NULL COMMENT '',
+  `fueDonado` TINYINT(1) NOT NULL COMMENT '',
+  `idDonacion` INT(11) NULL DEFAULT NULL COMMENT '',
+  PRIMARY KEY (`idAdquisicion`)  COMMENT '',
+  CONSTRAINT `idDonacion`
+    FOREIGN KEY (`idDonacion`)
+    REFERENCES `mydb`.`TBDonaciones` (`idDonacion`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`TBCondonaciones`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`TBCondonaciones` (
+  `idAdeudo` INT(11) NOT NULL COMMENT '',
+  `autoridad` INT UNSIGNED NOT NULL COMMENT '',
+  `justificacion` TEXT NOT NULL COMMENT '',
+  PRIMARY KEY (`idAdeudo`)  COMMENT '',
+  INDEX `idAdeudo_idx` (`idAdeudo` ASC)  COMMENT '',
+  UNIQUE INDEX `idAdeudo_UNIQUE` (`idAdeudo` ASC)  COMMENT '',
+  CONSTRAINT `idAdeudo`
+    FOREIGN KEY (`idAdeudo`)
+    REFERENCES `mydb`.`TBAdeudos` (`idAdeudo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `autoridad`
+    FOREIGN KEY (`autoridad`)
+    REFERENCES `mydb`.`TBPersonal` (`idPersonal`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`TBTiposMultimedia`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`TBTiposMultimedia` (
+  `idTipo` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '',
+  `nombre` VARCHAR(45) NOT NULL COMMENT '',
+  PRIMARY KEY (`idTipo`)  COMMENT '')
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`TBMultimedia`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`TBMultimedia` (
+  `idMultimedia` VARCHAR(50) NOT NULL COMMENT '',
+  `tipo` INT UNSIGNED NOT NULL COMMENT '',
+  `titulo` VARCHAR(45) NOT NULL COMMENT '',
+  `areaEducativa` VARCHAR(45) NULL DEFAULT NULL COMMENT '',
+  `narrador` VARCHAR(45) NULL DEFAULT NULL COMMENT '',
+  `nombreDelLibro` VARCHAR(45) NULL DEFAULT NULL COMMENT '',
+  `plataforma` VARCHAR(45) NULL DEFAULT NULL COMMENT '',
+  `version` VARCHAR(45) NULL DEFAULT NULL COMMENT '',
+  `año` DATE NULL DEFAULT NULL COMMENT '',
+  `director` VARCHAR(45) NULL DEFAULT NULL COMMENT '',
+  `creadoEn` DATETIME NULL COMMENT '',
+  `actualizadoEn` DATETIME NULL COMMENT '',
+  PRIMARY KEY (`idMultimedia`)  COMMENT '',
+  CONSTRAINT `tipo`
+    FOREIGN KEY (`tipo`)
+    REFERENCES `mydb`.`TBTiposMultimedia` (`idTipo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`TBReportes`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`TBReportes` (
+  `idReporte` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '',
+  `fechaInicio` DATE NULL DEFAULT NULL COMMENT '',
+  `fechaFinal` DATE NULL DEFAULT NULL COMMENT '',
+  `tipo` VARCHAR(45) NULL DEFAULT NULL COMMENT '',
+  `rutaArchivo` VARCHAR(200) NULL DEFAULT NULL COMMENT '',
+  PRIMARY KEY (`idReporte`)  COMMENT '')
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`TBTiposTextos`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`TBTiposTextos` (
+  `idTipo` INT UNSIGNED NOT NULL COMMENT '',
+  `nombre` VARCHAR(45) NOT NULL COMMENT '',
+  PRIMARY KEY (`idTipo`)  COMMENT '')
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`TBEditoriales`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`TBEditoriales` (
+  `idEditorial` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '',
+  `nombre` VARCHAR(45) NULL COMMENT '',
+  PRIMARY KEY (`idEditorial`)  COMMENT '')
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`TBTextos`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`TBTextos` (
+  `idTexto` VARCHAR(50) NOT NULL COMMENT '',
+  `tipo` INT UNSIGNED NOT NULL COMMENT '',
+  `titulo` VARCHAR(45) NULL DEFAULT NULL COMMENT '',
+  `editorial` INT UNSIGNED NOT NULL COMMENT '',
+  `fechaDePublicacion` DATE NULL DEFAULT NULL COMMENT '',
+  `numeroDePaginas` VARCHAR(45) NULL DEFAULT NULL COMMENT '',
+  `numeroDePublicacion` VARCHAR(10) NULL DEFAULT NULL COMMENT '',
+  `lugarDePublicacion` VARCHAR(45) NULL DEFAULT NULL COMMENT '',
+  `numeroDeRevista` VARCHAR(45) NULL DEFAULT NULL COMMENT '',
+  `creadoEn` DATETIME NULL COMMENT '',
+  `modificadoEn` DATETIME NULL COMMENT '',
+  PRIMARY KEY (`idTexto`)  COMMENT '',
+  CONSTRAINT `tipo`
+    FOREIGN KEY (`tipo`)
+    REFERENCES `mydb`.`TBTiposTextos` (`idTipo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `editorial`
+    FOREIGN KEY (`editorial`)
+    REFERENCES `mydb`.`TBEditoriales` (`idEditorial`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`TBTextoEjemplares`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`TBTextoEjemplares` (
+  `idEjemplar` VARCHAR(50) NOT NULL COMMENT '',
+  `idTexto` VARCHAR(50) NOT NULL COMMENT '',
+  `idAdquisicion` INT(11) UNSIGNED NOT NULL COMMENT '',
+  `disponible` TINYINT(1) NOT NULL COMMENT '',
+  PRIMARY KEY (`idEjemplar`)  COMMENT '',
+  CONSTRAINT `idTexto`
+    FOREIGN KEY (`idTexto`)
+    REFERENCES `mydb`.`TBTextos` (`idTexto`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `idAdquisicion`
+    FOREIGN KEY (`idAdquisicion`)
+    REFERENCES `mydb`.`TBAdquisiciones` (`idAdquisicion`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`TBReservaciones`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`TBReservaciones` (
+  `idReservacion` INT(11) UNSIGNED NOT NULL COMMENT '',
+  `idTextoEjemplar` VARCHAR(50) NOT NULL COMMENT '',
+  `fechaVencimiento` DATETIME NULL DEFAULT NULL COMMENT '',
+  `idPrestatario` INT UNSIGNED NOT NULL COMMENT '',
+  PRIMARY KEY (`idReservacion`)  COMMENT '',
+  CONSTRAINT `idPrestatario`
+    FOREIGN KEY (`idPrestatario`)
+    REFERENCES `mydb`.`TBPrestatarios` (`idPrestatario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `idTextoEjemplar`
+    FOREIGN KEY (`idTextoEjemplar`)
+    REFERENCES `mydb`.`TBTextoEjemplares` (`idEjemplar`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`TBAutores`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`TBAutores` (
+  `idAutor` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '',
+  `nombre` VARCHAR(100) NULL COMMENT '',
+  PRIMARY KEY (`idAutor`)  COMMENT '')
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`textos-autores-aux`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`textos-autores-aux` (
+  `idTexto` VARCHAR(50) NOT NULL COMMENT '',
+  `idAutor` INT UNSIGNED NOT NULL COMMENT '',
+  CONSTRAINT `idTexto`
+    FOREIGN KEY (`idTexto`)
+    REFERENCES `mydb`.`TBTextos` (`idTexto`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `idAutor`
+    FOREIGN KEY (`idAutor`)
+    REFERENCES `mydb`.`TBAutores` (`idAutor`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`TBPaises`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`TBPaises` (
+  `idPais` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '',
+  `nombre` VARCHAR(45) NULL COMMENT '',
+  PRIMARY KEY (`idPais`)  COMMENT '')
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`textos-paises-aux`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`textos-paises-aux` (
+  `idTexto` VARCHAR(50) NOT NULL COMMENT '',
+  `idPais` INT UNSIGNED NOT NULL COMMENT '',
+  PRIMARY KEY (`idTexto`)  COMMENT '',
+  CONSTRAINT `idTexto`
+    FOREIGN KEY (`idTexto`)
+    REFERENCES `mydb`.`TBTextos` (`idTexto`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `idPais`
+    FOREIGN KEY (`idPais`)
+    REFERENCES `mydb`.`TBPaises` (`idPais`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`TBMultimediaEjemplares`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`TBMultimediaEjemplares` (
+  `idEjemplar` VARCHAR(50) NOT NULL COMMENT '',
+  `idMultimedia` VARCHAR(50) NOT NULL COMMENT '',
+  `idAdquision` INT(11) NOT NULL COMMENT '',
+  `disponible` TINYINT(1) NOT NULL COMMENT '',
+  PRIMARY KEY (`idEjemplar`)  COMMENT '',
+  CONSTRAINT `idMultimedia`
+    FOREIGN KEY (`idMultimedia`)
+    REFERENCES `mydb`.`TBMultimedia` (`idMultimedia`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `idAdquisicion`
+    FOREIGN KEY (`idAdquision`)
+    REFERENCES `mydb`.`TBAdquisiciones` (`idAdquisicion`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
