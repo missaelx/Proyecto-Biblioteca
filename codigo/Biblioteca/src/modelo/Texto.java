@@ -1,3 +1,9 @@
+/*
+Autor:Missael Hernandez Rosado
+Fecha de creación: 07/05/2016
+Fecha de Modificación:09/05/2016
+Descripción: Esta clase solo modela los atributos de un texto, especificamente su descripcion, mas no representa un ejemplar
+*/
 package modelo;
 
 import java.sql.Date;
@@ -6,21 +12,20 @@ import java.util.Objects;
 
 public class Texto extends Item {
 
-    //private String id;
+    
     protected String editorial;
     protected Date fechaPublicacion;
     protected String nombreCompletoDelAutor;
     protected int numeroDeEjemplares;
     protected int numeroDePaginas;
 
-    public Texto(String editorial, Date fechaPublicacion, String nombreCompletoDelAutor, int numeroDeEjemplares, int numeroDePaginas, boolean Disponibilidad, String Identificador) {
-        super(Disponibilidad, Identificador);
-        this.editorial = editorial;
-        this.fechaPublicacion = fechaPublicacion;
-        this.nombreCompletoDelAutor = nombreCompletoDelAutor;
-        this.numeroDeEjemplares = numeroDeEjemplares;
-        this.numeroDePaginas = numeroDePaginas;
-        //this.id = id;
+    public Texto(DatosTexto datos) {
+        super(datos.getDisponibilidad(), datos.getIdentificador());
+        this.editorial = datos.getEditorial();
+        this.fechaPublicacion = datos.getFechaPublicacion();
+        this.nombreCompletoDelAutor = datos.getNombreCompletoDelAutor();
+        this.numeroDeEjemplares = datos.getNumeroDeEjemplares();
+        this.numeroDePaginas = datos.getNumeroDePaginas();
     }
     
     public Texto(boolean disponibilidad, String identificador){

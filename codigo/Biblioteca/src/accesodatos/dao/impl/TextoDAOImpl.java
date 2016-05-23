@@ -1,35 +1,22 @@
-/*
- * Copyright (C) 2016 missael
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- */
 package accesodatos.dao.impl;
 
+import Definiciones.TiposDeTextos;
 import Excepciones.ErrorActualizarException;
-import Excepciones.ErrorAlEliminarException;
-import Excepciones.ErrorAlGuardarException;
 import Excepciones.ErrorConexionBaseDatosException;
 import Excepciones.ObjetoNoEncontradoException;
 import Excepciones.ObjetoSQLMalGuardadoException;
 import accesodatos.Conexion;
+import accesodatos.dao.AutorDAO;
+import accesodatos.dao.EditorialDAO;
+import accesodatos.dao.PaisDAO;
 import accesodatos.dao.TextoDAO;
+import accesodatos.dao.TextoEjemplaresDAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import modelo.DatosTexto;
 import modelo.Ensayo;
 import modelo.Libro;
 import modelo.Periodico;
@@ -61,25 +48,36 @@ public class TextoDAOImpl implements TextoDAO{
         try {
             connection = conexion.obtenerConexion();
             PreparedStatement sentencia;
-            sentencia = connection.prepareStatement("select * from TBTextos where id = ?");
+            sentencia = connection.prepareStatement("select * from TBTextos where idTexto = ?");
             sentencia.setString(1, identificador);
             resultados = sentencia.executeQuery();
             if(resultados.first()){
-                switch(resultados.getString("tipo")) {
-                    case "Ensayo":
-                        resultado = new Ensayo(resultados.getString("lugarDePublicacion"), resultados.getString("titulo"), resultados.getString("editorial"), resultados.getDate("fechaDePublicacion"), resultados.getString("autor"), resultados.getInt("numeroEjemplares"), resultados.getInt("numeroDePaginas"), resultados.getBoolean("disponible"), resultados.getString("id"));
+                
+                DatosTexto datos = new DatosTexto();
+                datos.setDisponibilidad(getDisponibilidad(identificador));
+                datos.setEditorial(getEditorialFromDB(resultados.getInt("editorial")));
+                datos.setFechaPublicacion(resultados.getDate("fechaDePublicacion"));
+                datos.setIdentificador(identificador);
+                datos.setNombreCompletoDelAutor(getAutoresFromDB(identificador));
+                datos.setNumeroDeEjemplares(getNumeroEjemplares(identificador));
+                datos.setNumeroDePaginas(resultados.getInt("numeroDePaginas"));
+                
+                
+                switch(resultados.getInt("tipo")) {
+                    case TiposDeTextos.ENSAYO:
+                        resultado = new Ensayo(resultados.getString("lugarDePublicacion"), resultados.getString("titulo"), datos);
                         break;
-                    case "Periodico":
-                        resultado = new Periodico(resultados.getString("titulo"), resultados.getString("editorial"), resultados.getDate("fechaDePublicacion"), resultados.getString("autor"), resultados.getInt("numeroEjemplares"), resultados.getInt("numeroDePaginas"), resultados.getBoolean("disponible"), resultados.getString("id"));
+                    case TiposDeTextos.PERIODICO:
+                        resultado = new Periodico(resultados.getString("titulo"), datos);
                         break;
-                    case "Libro":
-                        resultado = new Libro(resultados.getString("pais"), resultados.getString("titulo"), resultados.getString("editorial"), resultados.getDate("fechaDePublicacion"), resultados.getString("autor"), resultados.getInt("numeroEjemplares"), resultados.getInt("numeroDePaginas"), resultados.getBoolean("disponible"), resultados.getString("id"));
+                    case TiposDeTextos.LIBRO:
+                        resultado = new Libro(getPaisesFromDB(identificador), resultados.getString("titulo"), datos);
                         break;
-                    case "Tesis":
-                        resultado = new Tesis(resultados.getString("titulo"), resultados.getString("editorial"), resultados.getDate("fechaDePublicacion"), resultados.getString("autor"), resultados.getInt("numeroEjemplares"), resultados.getInt("numeroDePaginas"), resultados.getBoolean("disponible"), resultados.getString("id"));
+                    case TiposDeTextos.TESIS:
+                        resultado = new Tesis(resultados.getString("titulo"), datos);
                         break;
-                    case "Revista":
-                        resultado = new Revista(resultados.getString("titulo"), resultados.getString("numeroDeRevista"), resultados.getString("editorial"), resultados.getDate("fechaDePublicacion"), resultados.getString("autor"), resultados.getInt("numeroEjemplares"), resultados.getInt("numeroDePaginas"), resultados.getBoolean("disponible"), resultados.getString("id"));
+                    case TiposDeTextos.REVISTA:
+                        resultado = new Revista(resultados.getString("titulo"), resultados.getString("numeroDeRevista"), datos);
                         break;
                     default:
                         throw new ObjetoSQLMalGuardadoException(); //lanza esta excepcion si no coincide con niguno de los tipos predefinidos
@@ -88,8 +86,8 @@ public class TextoDAOImpl implements TextoDAO{
                 throw new ObjetoNoEncontradoException("No entro al first", identificador);
             }
         } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
             throw new ObjetoNoEncontradoException("Error SQL");
-            //System.out.println(ex.getMessage());
         } catch (NullPointerException ex){
             throw new ErrorConexionBaseDatosException(ex.getMessage());
         }
@@ -97,21 +95,42 @@ public class TextoDAOImpl implements TextoDAO{
         
         return resultado;
     } 
-    @Override
-    public void eliminarPorIdenficador(String identificador) throws ObjetoNoEncontradoException, ErrorAlEliminarException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void guardar(Texto item) throws ErrorAlGuardarException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
     public void actualizar(String identificador, Texto texto) throws ErrorActualizarException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+    private String getEditorialFromDB(int identificador) throws ObjetoNoEncontradoException, ErrorConexionBaseDatosException, ObjetoSQLMalGuardadoException{
+        EditorialDAO editorialDAO = new EditorialDAOImpl();
+        return editorialDAO.buscarPorIdentificador(identificador);
+    }
     
+    private String getAutoresFromDB(String idTexto){
+        AutorDAO autorDAO = new AutorDAOImpl();
+        try {
+            return autorDAO.buscarPorIdentificador(idTexto);
+        } catch (ObjetoSQLMalGuardadoException | ErrorConexionBaseDatosException ex) {
+            return "";
+        }
+    }
     
+    private String getPaisesFromDB(String idTexto){
+        PaisDAO paisDAO = new PaisDAOImpl();
+        try {
+            return paisDAO.buscarPorIdentificador(idTexto);
+        } catch (ObjetoSQLMalGuardadoException | ErrorConexionBaseDatosException ex) {
+            return "";
+        }
+    }
+    
+    private int getNumeroEjemplares(String idTexto){
+        TextoEjemplaresDAO ejemplaresDAO = new TextoEjemplaresDAOImpl();
+        return ejemplaresDAO.getNumeroDeEjemplares(idTexto);
+    }
+    
+    private boolean getDisponibilidad(String idTexto){
+        TextoEjemplaresDAO ejemplaresDAO = new TextoEjemplaresDAOImpl();
+        return ejemplaresDAO.getDisponiblidad(idTexto);
+    }
 }

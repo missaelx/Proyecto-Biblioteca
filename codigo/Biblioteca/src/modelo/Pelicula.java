@@ -14,8 +14,8 @@ public class Pelicula extends Multimedia {
     private String director;
     private boolean pais;
 
-    public Pelicula(Date anio, String director, boolean pais, String Nombre, boolean Disponibilidad, String Identificador) {
-        super(Nombre, Disponibilidad, Identificador);
+    public Pelicula(Date anio, String director, boolean pais, String nombre, boolean disponibilidad, String identificador) {
+        super(nombre, disponibilidad, identificador);
         this.anio = anio;
         this.director = director;
         this.pais = pais;
@@ -52,7 +52,7 @@ public class Pelicula extends Multimedia {
     /**
      * @return the pais
      */
-    public boolean isPais() {
+    public boolean getPais() {
         return pais;
     }
 

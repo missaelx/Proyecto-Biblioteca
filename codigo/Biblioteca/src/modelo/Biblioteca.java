@@ -13,8 +13,8 @@ public class Biblioteca {
 
 	private String direccion;
 	private String nombre;
-	private List<Personal> m_Personal;
-	private Item m_Item;
+	private List<Personal> personal;
+	private Item item;
 
 	public Biblioteca(){
 
@@ -54,34 +54,34 @@ public class Biblioteca {
 
     /**
      * Este metodo retorna una lista del personal en la biblioteca
-     * @return el m_Personal
+     * @return el personal
      */
-    public List<Personal> getM_Personal() {
-        return m_Personal;
+    public List<Personal> getpersonal() {
+        return personal;
     }
 
     /**
      * Este metodo sirve para colocar una lista del personal en la biblioteca
-     * @param m_Personal el m_Personal a guardar
+     * @param personal el personal a guardar
      */
-    public void setM_Personal(Personal m_Personal) {
-        this.m_Personal = (List<Personal>) m_Personal;
+    public void setpersonal(Personal personal) {
+        this.personal = (List<Personal>) personal;
     }
 
     /**
      * Este metodo retorna una lista de items en la biblioteca
-     * @return el m_Item
+     * @return el item
      */
-    public List<Item> getM_Item() {
-        return (List<Item>) m_Item;
+    public List<Item> getItem() {
+        return (List<Item>) item;
     }
 
     /**
      * Este metodo sirve para colocar una lista de items en la biblioteca
-     * @param m_Item el m_Item a guardar
+     * @param item el item a guardar
      */
-    public void setM_Item(Item m_Item) {
-        this.m_Item = m_Item;
+    public void setItem(Item item) {
+        this.item = item;
     }
 
 }

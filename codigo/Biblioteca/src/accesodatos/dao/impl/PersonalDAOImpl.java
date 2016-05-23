@@ -5,6 +5,7 @@ import Excepciones.ObjetoNoEncontradoException;
 import Excepciones.ObjetoSQLMalGuardadoException;
 import accesodatos.Conexion;
 import accesodatos.dao.PersonalDAO;
+import accesodatos.dao.TBTiposPersonalDAO;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -13,6 +14,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import modelo.DatosPersona;
 import modelo.Personal;
 
 /**
@@ -30,20 +32,27 @@ public class PersonalDAOImpl implements PersonalDAO{
     }
     
     @Override
-    public Personal buscarPorIdentificador(String identificador) throws ObjetoNoEncontradoException, ObjetoSQLMalGuardadoException, ErrorConexionBaseDatosException {
+    public Personal buscarPorIdentificador(int identificador) throws ObjetoNoEncontradoException, ObjetoSQLMalGuardadoException, ErrorConexionBaseDatosException {
         Personal resultado = null;
         
         try {
             connection = conexion.obtenerConexion();
             PreparedStatement sentencia;
-            sentencia = connection.prepareStatement("select * from TBPersonal where numeroPersonal = ?");
-            sentencia.setString(1, identificador);
+            sentencia = connection.prepareStatement("select * from TBPersonal where idPersonal = ?");
+            sentencia.setInt(1, identificador);
             resultados = sentencia.executeQuery();
             
             if(resultados.first()){
-                resultado = new Personal(identificador, resultados.getString("correo"), resultados.getString("direccion"), resultados.getDate("fechaNacimiento"), resultados.getString("nombre"), resultados.getString("telefono"), resultados.getString("tipo"));
+                DatosPersona datos = new DatosPersona();
+                datos.setCorreo(resultados.getString("correo"));
+                datos.setDireccion(resultados.getString("direccion"));
+                datos.setFechaDeNacimiento(resultados.getDate("fechaNacimiento"));
+                datos.setNombre(resultados.getString("nombre"));
+                datos.setTelefono(resultados.getString("telefono"));
+                
+                resultado = new Personal(identificador, resultados.getString("numeroPersonal"), getTipoPersonalFromDB(resultados.getInt("tipo")), datos);
             } else {
-                throw new ObjetoNoEncontradoException("Registros vacios", identificador);
+                throw new ObjetoNoEncontradoException("Registros vacios", identificador + "");
             }
             
             
@@ -56,4 +65,41 @@ public class PersonalDAOImpl implements PersonalDAO{
         return resultado;
     }
     
+    
+    private String getTipoPersonalFromDB(int idTipoPersonal) throws ObjetoNoEncontradoException, ErrorConexionBaseDatosException{
+        TBTiposPersonalDAO tiposPersonal = new TBTiposPersonalDAOImpl();
+        return tiposPersonal.buscarPorIdentificador(idTipoPersonal);
+    }
+
+    @Override
+    public Personal buscarPorNumeroPersonal(String identificador) throws ObjetoNoEncontradoException, ErrorConexionBaseDatosException {
+        Personal resultado = null;
+        
+        try {
+            connection = conexion.obtenerConexion();
+            PreparedStatement sentencia;
+            sentencia = connection.prepareStatement("select * from TBPersonal where numeroPersonal = ?");
+            sentencia.setString(1, identificador);
+            resultados = sentencia.executeQuery();
+            
+            if(resultados.first()){
+                DatosPersona datos = new DatosPersona();
+                datos.setCorreo(resultados.getString("correo"));
+                datos.setDireccion(resultados.getString("direccion"));
+                datos.setFechaDeNacimiento(resultados.getDate("fechaNacimiento"));
+                datos.setNombre(resultados.getString("nombre"));
+                datos.setTelefono(resultados.getString("telefono"));
+                
+                resultado = new Personal(resultados.getInt("idPersonal"), identificador,getTipoPersonalFromDB(resultados.getInt("tipo")), datos);
+            } else {
+                throw new ObjetoNoEncontradoException("Registros vacios", identificador + "");
+            }
+            
+            
+        } catch (SQLException | NullPointerException ex) {
+            throw new ErrorConexionBaseDatosException(ex.getMessage());
+        }
+        
+        return resultado;
+    }
 }

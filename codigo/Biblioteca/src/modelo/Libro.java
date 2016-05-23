@@ -13,14 +13,14 @@ public class Libro extends Texto {
     private String pais;
     private String titulo;
 
-    public Libro(String pais, String titulo, String editorial, Date fechaPublicacion, String nombreCompletoDelAutor, int numeroDeEjemplares, int numeroDePaginas, boolean Disponibilidad, String Identificador) {
-        super(editorial, fechaPublicacion, nombreCompletoDelAutor, numeroDeEjemplares, numeroDePaginas,  Disponibilidad, Identificador);
+    public Libro(String pais, String titulo, DatosTexto datos) {
+        super(datos);
         this.pais = pais;
         this.titulo = titulo;
     }
     
-    public Libro(String editorial, Date fechaPublicacion, String nombreCompletoDelAutor, int numeroDeEjemplares, int numeroDePaginas, boolean Disponibilidad, String Identificador) {
-        super(editorial, fechaPublicacion, nombreCompletoDelAutor, numeroDeEjemplares, numeroDePaginas,  Disponibilidad, Identificador);
+    public Libro(DatosTexto datos) {
+        super(datos);
         
     }
     
@@ -29,6 +29,7 @@ public class Libro extends Texto {
     }
 
     /**
+     * Este método retorna una cadena que indica el país de origen del libro.
      * @return the pais
      */
     public String getPais() {
@@ -36,6 +37,7 @@ public class Libro extends Texto {
     }
 
     /**
+     * Este método sirve para colocar una cadena que indica el país de origen del libro.
      * @param pais the pais to set
      */
     public void setPais(String pais) {
@@ -43,6 +45,7 @@ public class Libro extends Texto {
     }
 
     /**
+     * Este método retorna una cadena que indica el título del libro.
      * @return the titulo
      */
     public String getTitulo() {
@@ -50,6 +53,7 @@ public class Libro extends Texto {
     }
 
     /**
+     * Este método sirve para colocar una cadena que indica el título del libro.
      * @param titulo the titulo to set
      */
     public void setTitulo(String titulo) {

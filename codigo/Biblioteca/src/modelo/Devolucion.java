@@ -10,39 +10,43 @@ import java.sql.Date;
 
 public class Devolucion {
 
-	private Date Fecha;
-	private Prestamo m_Prestamo;
+    private Date fecha;
+    private Prestamo prestamo;
 
-	public Devolucion(){
+    public Devolucion(){
 
-	}
+    }
 
     /**
-     * @return la Fecha
+     * Este método retorna la fecha en la que se creó la devolución de un ítem.
+     * @return la fecha
      */
     public Date getFecha() {
-        return Fecha;
+        return fecha;
     }
 
     /**
-     * @param Fecha la Fecha a guardar
+     * Este método sirve para colocar la fecha en la que se creó la devolución.
+     * @param fecha la fecha a guardar
      */
-    public void setFecha(Date Fecha) {
-        this.Fecha = Fecha;
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 
     /**
-     * @return el m_Prestamo
+     * Este método retorna el préstamo asociado a la devolución.
+     * @return el prestamo
      */
-    public Prestamo getM_Prestamo() {
-        return m_Prestamo;
+    public Prestamo getPrestamo() {
+        return prestamo;
     }
 
     /**
-     * @param m_Prestamo el m_Prestamo a guardar
+     * Este método sirve para colocar el préstamo asociado a la devolución.
+     * @param prestamo el prestamo a guardar
      */
-    public void setM_Prestamo(Prestamo m_Prestamo) {
-        this.m_Prestamo = m_Prestamo;
+    public void setPrestamo(Prestamo prestamo) {
+        this.prestamo = prestamo;
     }
 
 }

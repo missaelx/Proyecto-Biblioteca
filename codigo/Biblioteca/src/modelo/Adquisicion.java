@@ -10,14 +10,14 @@ public class Adquisicion {
 
     private String fechadeAdquisicion;
     private boolean metodoDeAdquisicion; //Seran diferentes tipos de adquisiciones predefinidas, ej: donacion, comprar
-    private Item m_item;
-    private Donacion m_Donacion;
+    private Item item;
+    private Donacion donacion;
 
-    public Adquisicion(String fechadeAdquisicion, boolean metodoDeAdquisicion, Item m_item, Donacion m_Donacion) {
+    public Adquisicion(String fechadeAdquisicion, boolean metodoDeAdquisicion, Item item, Donacion donacion) {
         this.fechadeAdquisicion = fechadeAdquisicion;
         this.metodoDeAdquisicion = metodoDeAdquisicion;
-        this.m_item = m_item;
-        this.m_Donacion = m_Donacion;
+        this.item = item;
+        this.donacion = donacion;
     }
     
     
@@ -56,34 +56,34 @@ public class Adquisicion {
 
     /**
      * Este metodo retorna el objeto item de la adquisicion
-     * @return el m_item
+     * @return el item
      */
-    public Item getM_item() {
-        return m_item;
+    public Item getItem() {
+        return item;
     }
 
     /**
      * Este metodo sirve para colocar el item de la adquisicion
-     * @param m_item para colocar m_item 
+     * @param item para colocar item 
      */
-    public void setM_item(Item m_item) {
-        this.m_item = m_item;
+    public void setItem(Item item) {
+        this.item = item;
     }
 
     /**
      * Este metodo retorna el objeto donacion si es que tiene. 
-     * @return the m_Donacion
+     * @return the donacion
      */
-    public Donacion getM_Donacion() {
-        return m_Donacion;
+    public Donacion getDonacion() {
+        return donacion;
     }
 
     /**
      * Este metodo sirve para colocar la donacion
-     * @param m_Donacion para colocar m_Donacion 
+     * @param donacion para colocar donacion 
      */
-    public void setM_Donacion(Donacion m_Donacion) {
-        this.m_Donacion = m_Donacion;
+    public void setDonacion(Donacion donacion) {
+        this.donacion = donacion;
     }
 
     

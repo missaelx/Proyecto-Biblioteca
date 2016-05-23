@@ -33,7 +33,5 @@ import modelo.Texto;
  */
 public interface TextoDAO {
     public Texto buscarPorIdentificador(String identificador) throws ObjetoNoEncontradoException, ObjetoSQLMalGuardadoException, ErrorConexionBaseDatosException;
-    public void eliminarPorIdenficador(String identificador) throws ObjetoNoEncontradoException, ErrorAlEliminarException;
-    public void guardar(Texto item) throws ErrorAlGuardarException;
     public void actualizar(String identificador, Texto texto) throws ErrorActualizarException;
 }

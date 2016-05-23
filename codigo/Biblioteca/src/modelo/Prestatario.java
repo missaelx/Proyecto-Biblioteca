@@ -12,17 +12,18 @@ import java.util.Objects;
 public class Prestatario extends Persona {
     
     
-    private String identificador;
+    private int identificador;
+    private String numeroPersonal;
     private TipoPrestatario tipo;
-    //private boolean multas; su control es dificil
     private int numeroDeTextos; //numero de textos permitidos
     private int numeroDeTextoPrestados;
     private Date vigencia; //vigencia de la cuenta
     
 
-    public Prestatario(String identificador, TipoPrestatario tipo, int numeroDeTextoPrestados, Date vigencia, String correo, String direccion, Date fechaDeNacimiento, String nombre, String telefono) {
-        super(correo, direccion, fechaDeNacimiento, nombre, telefono);
+    public Prestatario(int identificador, String numeroPersonal, TipoPrestatario tipo, int numeroDeTextoPrestados, Date vigencia, DatosPersona datos) {
+        super(datos);
         this.identificador = identificador;
+        this.numeroPersonal = numeroPersonal;
         this.tipo = tipo;
         this.numeroDeTextoPrestados = numeroDeTextoPrestados;
         this.vigencia = vigencia;
@@ -36,14 +37,14 @@ public class Prestatario extends Persona {
     /**
      * @return the identificador
      */
-    public String getIdentificador() {
+    public int getIdentificador() {
         return identificador;
     }
 
     /**
      * @param identificador the identificador to set
      */
-    public void setIdentificador(String identificador) {
+    public void setIdentificador(int identificador) {
         this.identificador = identificador;
     }
 
@@ -142,6 +143,20 @@ public class Prestatario extends Persona {
      */
     public void setNumeroDeTextoPrestados(int numeroDeTextoPrestados) {
         this.numeroDeTextoPrestados = numeroDeTextoPrestados;
+    }
+
+    /**
+     * @return the numeroPersonal
+     */
+    public String getNumeroPersonal() {
+        return numeroPersonal;
+    }
+
+    /**
+     * @param numeroPersonal the numeroPersonal to set
+     */
+    public void setNumeroPersonal(String numeroPersonal) {
+        this.numeroPersonal = numeroPersonal;
     }
     
     

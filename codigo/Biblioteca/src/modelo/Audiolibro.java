@@ -8,45 +8,45 @@ package modelo;
 
 public class Audiolibro extends Multimedia {
 
-    private String Narrador;
-    private String NombreDelLibro;
+    private String narrador;
+    private String nombreDelLibro;
 
-    public Audiolibro(String Narrador, String NombreDelLibro, String Nombre, boolean Disponibilidad, String Identificador) {
-        super(Nombre, Disponibilidad, Identificador);
-        this.Narrador = Narrador;
-        this.NombreDelLibro = NombreDelLibro;
+    public Audiolibro(String narrador, String nombreDelLibro, String nombre, boolean disponibilidad, String identificador) {
+        super(nombre, disponibilidad, identificador);
+        this.narrador = narrador;
+        this.nombreDelLibro = nombreDelLibro;
     }
 
     /**
      * Este metodo retorna una cadena con elnombre del narrador.
-     * @return el Narrador
+     * @return el narrador
      */
     public String getNarrador() {
-        return Narrador;
+        return narrador;
     }
 
     /**
      * Este metodo sirve para colocar el nombre del narrador 
-     * @param Narrador el Narrador a guardar
+     * @param narrador el narrador a guardar
      */
-    public void setNarrador(String Narrador) {
-        this.Narrador = Narrador;
+    public void setNarrador(String narrador) {
+        this.narrador = narrador;
     }
 
     /**
      * Este metodo retorna el nombre del libro narrado
-     * @return el NombreDelLibro
+     * @return el nombreDelLibro
      */
     public String getNombreDelLibro() {
-        return NombreDelLibro;
+        return nombreDelLibro;
     }
 
     /**
      * Este metodo sirve para colocar el nombre del libro narrado
-     * @param NombreDelLibro el NombreDelLibro a guardar
+     * @param nombreDelLibro el nombreDelLibro a guardar
      */
-    public void setNombreDelLibro(String NombreDelLibro) {
-        this.NombreDelLibro = NombreDelLibro;
+    public void setNombreDelLibro(String nombreDelLibro) {
+        this.nombreDelLibro = nombreDelLibro;
     }
 
     

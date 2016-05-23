@@ -12,7 +12,7 @@ import java.util.logging.Logger;
  */
 public class Conexion {
     private Connection conexion;
-    private final String DB = "jdbc:mysql://localhost:3030/mydb";
+    private final String DB = "jdbc:mysql://localhost:3306/mydb";
     private final String USUARIO = "biblioteca";
     private final String CONSTRASENA = "biblioteca";
     

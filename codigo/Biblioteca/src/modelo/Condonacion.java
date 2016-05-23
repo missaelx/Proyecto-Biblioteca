@@ -10,7 +10,7 @@ public class Condonacion {
 
 	private String autoridad;
 	private String justificacion;
-	private Adeudo m_Adeudo;
+	private Adeudo adeudo;
 
 	public Condonacion(){
 
@@ -50,18 +50,18 @@ public class Condonacion {
 
     /**
      * Este metodo retorna
-     * @return el m_Adeudo
+     * @return el adeudo
      */
-    public Adeudo getM_Adeudo() {
-        return m_Adeudo;
+    public Adeudo getAdeudo() {
+        return adeudo;
     }
 
     /**
      * Este metodo sirve para colocar
-     * @param m_Adeudo el m_Adeudo a guardar
+     * @param adeudo el adeudo a guardar
      */
-    public void setM_Adeudo(Adeudo m_Adeudo) {
-        this.m_Adeudo = m_Adeudo;
+    public void setAdeudo(Adeudo adeudo) {
+        this.adeudo = adeudo;
     }
 
 

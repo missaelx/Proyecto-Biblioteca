@@ -1,25 +1,7 @@
-/*
- * Copyright (C) 2016 missael
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License
- * as published by the Free Software Foundation; either version 2
- * of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
- */
 package accesodatos.dao.impl;
 
 import java.sql.Date;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import modelo.DatosTexto;
 import modelo.Ensayo;
 import modelo.Libro;
 import modelo.Periodico;
@@ -41,10 +23,20 @@ public class TextoDAOImplTest {
     @Test
     public void testBuscarPorIdentificador_Revista() throws Exception {
         System.out.println("Buscar Revista");
-        String identificador = "1";
+        String identificador = "5";
         TextoDAOImpl instance = new TextoDAOImpl();
         Revista expResult;
-        expResult = new Revista("Playboy", "5", "Jeft", new Date(2016,5,3), "Missael", 10, 54, true , "1");
+        
+        DatosTexto datos = new DatosTexto();
+        datos.setDisponibilidad(false);
+        datos.setEditorial("E. UV");
+        datos.setFechaPublicacion(new Date(1462165200000L));
+        datos.setIdentificador(identificador);
+        datos.setNombreCompletoDelAutor("Juan Carlos Perez Arriaga, Xavier Limon");
+        datos.setNumeroDeEjemplares(0);
+        datos.setNumeroDePaginas(43);
+        
+        expResult = new Revista("Revista El interesante", "12", datos);
         Revista resultado;
         Texto result = instance.buscarPorIdentificador(identificador);
         resultado = (Revista) result;
@@ -54,27 +46,42 @@ public class TextoDAOImplTest {
     @Test
     public void testBuscarPorIdentificador_Libro() throws Exception {
         System.out.println("Buscar Libro");
-        String identificador = "2";
+        String identificador = "3";
         TextoDAOImpl instance = new TextoDAOImpl();
         Libro expResult;
+        DatosTexto datos = new DatosTexto();
+        datos.setDisponibilidad(true);
+        datos.setEditorial("E. El Rey");
+        datos.setFechaPublicacion(new Date(1462942800000L));
+        datos.setIdentificador(identificador);
+        datos.setNombreCompletoDelAutor("Xavier Limon");
+        datos.setNumeroDeEjemplares(1);
+        datos.setNumeroDePaginas(21);
         
-        expResult = new Libro("Estados Unidos", "UML in color", "Trillas", new Date(1463547600000L), "Color", 2, 390, true , "2");
+        expResult = new Libro("República Dominicana", "Libro Bases de datos",datos);
         Libro resultado;
         Texto result = instance.buscarPorIdentificador(identificador);
         resultado = (Libro) result;
-        
         assertEquals(expResult, resultado);
     }
     
     @Test
     public void testBuscarPorIdentificador_Tesis() throws Exception {
         System.out.println("Buscar Tesis");
-        String identificador = "3";
+        String identificador = "4";
         TextoDAOImpl instance = new TextoDAOImpl();
         
         Tesis expResult;
+        DatosTexto datos = new DatosTexto();
+        datos.setDisponibilidad(false);
+        datos.setEditorial("E. El Rey");
+        datos.setFechaPublicacion(new Date(1462338000000L));
+        datos.setIdentificador(identificador);
+        datos.setNombreCompletoDelAutor("Xavier Limon");
+        datos.setNumeroDeEjemplares(0);
+        datos.setNumeroDePaginas(34);
         
-        expResult = new Tesis("Missaelitos en el ambiente", "Missael", new Date(1462251600000L), "Missael Hernandez Rosado", 5, 132, true , "3");
+        expResult = new Tesis("Tesis del planeta", datos);
         Tesis resultado;
         Texto result = instance.buscarPorIdentificador(identificador);
         resultado = (Tesis) result;
@@ -85,12 +92,20 @@ public class TextoDAOImplTest {
     @Test
     public void testBuscarPorIdentificador_Periodico() throws Exception {
         System.out.println("Buscar periodico");
-        String identificador = "4";
+        String identificador = "1";
         TextoDAOImpl instance = new TextoDAOImpl();
         
         Periodico expResult;
-        
-        expResult = new Periodico("AZ", "Salamanca", new Date(1462078800000L), "Missael", 1, 42, true , "4");
+        DatosTexto datos = new DatosTexto();
+        datos.setDisponibilidad(true);
+        datos.setEditorial("E. El Rey");
+        datos.setFechaPublicacion(new Date(1462770000000L));
+        datos.setIdentificador("1");
+        datos.setNombreCompletoDelAutor("Xavier Limon");
+        datos.setNumeroDeEjemplares(2);
+        datos.setNumeroDePaginas(43);
+           
+        expResult = new Periodico("Periodico El Rey", datos);
         Periodico resultado;
         Texto result = instance.buscarPorIdentificador(identificador);
         resultado = (Periodico) result;
@@ -101,12 +116,20 @@ public class TextoDAOImplTest {
     @Test
     public void testBuscarPorIdentificador_Ensayo() throws Exception {
         System.out.println("Buscar Ensayo");
-        String identificador = "5";
+        String identificador = "2";
         TextoDAOImpl instance = new TextoDAOImpl();
         
         Ensayo expResult;
+        DatosTexto datos = new DatosTexto();
+        datos.setDisponibilidad(true);
+        datos.setEditorial("E. UV");
+        datos.setFechaPublicacion(new Date(1462165200000L));
+        datos.setIdentificador(identificador);
+        datos.setNombreCompletoDelAutor("Juan Carlos Perez Arriaga");
+        datos.setNumeroDeEjemplares(2);
+        datos.setNumeroDePaginas(50);
         
-        expResult = new Ensayo("Xalapa", "El poder", "UV" ,new Date(1462165200000L), "Missael", 2, 20, true , "5");
+        expResult = new Ensayo("Ensayo de Felix", "Xalapa", datos);
         Ensayo resultado;
         Texto result = instance.buscarPorIdentificador(identificador);
         resultado = (Ensayo) result;
@@ -118,7 +141,7 @@ public class TextoDAOImplTest {
         System.out.println("eliminarPorIdenficador");
         String identificador = "";
         TextoDAOImpl instance = new TextoDAOImpl();
-        instance.eliminarPorIdenficador(identificador);
+        //instance.eliminarPorIdenficador(identificador);
         fail("The test case is a prototype.");
     }
 
@@ -127,7 +150,7 @@ public class TextoDAOImplTest {
         System.out.println("guardar");
         Texto item = null;
         TextoDAOImpl instance = new TextoDAOImpl();
-        instance.guardar(item);
+        //instance.guardar(item);
         fail("The test case is a prototype.");
     }
 

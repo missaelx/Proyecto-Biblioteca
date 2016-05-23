@@ -10,18 +10,17 @@ import java.sql.Date;
 
 public class Donacion {
 
-	private String descripcion;
-	private boolean esMonetario;
-	private Date fecha;
-	private Donador m_Donador;
+    private String descripcion;
+    private boolean esMonetario;
+    private Date fecha;
+    private Donador donador;
 
-	public Donacion(){
+    public Donacion(){
 
-	}
+    }
 
     /**
-     * Este metodo retorna una cadena que es una descripcion de lo  
-     * que contuvo la donacion
+     * Este método retorna una cadena que es una descripción de lo que contuvo la donación.
      * @return la descripcion
      */
     public String getDescripcion() {
@@ -29,6 +28,7 @@ public class Donacion {
     }
 
     /**
+     * Este método sirve para colocar una cadena que es una descripción de lo que contuvo la donación.
      * @param descripcion la descripcion a guardar
      */
     public void setDescripcion(String descripcion) {
@@ -36,6 +36,7 @@ public class Donacion {
     }
 
     /**
+     * Este método retorna un boolean para saber si la donación es monetaria, true es monetaria, false no lo es.
      * @return the esMonetario
      */
     public boolean isEsMonetario() {
@@ -43,6 +44,7 @@ public class Donacion {
     }
 
     /**
+     * Este método sirve para colocar un boolean que indica si la donación es monetaria o no.
      * @param esMonetario the esMonetario a guardar
      */
     public void setEsMonetario(boolean esMonetario) {
@@ -50,6 +52,7 @@ public class Donacion {
     }
 
     /**
+     * Este método retorna un Date que indica la fecha en la que se generó la donación. 
      * @return la fecha
      */
     public Date getFecha() {
@@ -57,6 +60,7 @@ public class Donacion {
     }
 
     /**
+     * Este método sirve para colocar un Date que indica la fecha de la donación.
      * @param fecha la fecha a guardar
      */
     public void setFecha(Date fecha) {
@@ -64,17 +68,19 @@ public class Donacion {
     }
 
     /**
-     * @return el m_Donador
+     * Este método retorna un Donador el cual es el donador asociado a la donación.
+     * @return el donador
      */
-    public Donador getM_Donador() {
-        return m_Donador;
+    public Donador getDonador() {
+        return donador;
     }
 
     /**
-     * @param m_Donador el m_Donador a guardar
+     * Este método sirve para colocar un Donador que es el donador asociado.
+     * @param donador el donador a guardar
      */
-    public void setM_Donador(Donador m_Donador) {
-        this.m_Donador = m_Donador;
+    public void setDonador(Donador donador) {
+        this.donador = donador;
     }
 
 

@@ -10,5 +10,7 @@ import modelo.Prestatario;
  * @author missael
  */
 public interface PrestatarioDAO {
-    public Prestatario buscarPorIdentificador(String identificador) throws ObjetoNoEncontradoException, ObjetoSQLMalGuardadoException, ErrorConexionBaseDatosException;
+    public Prestatario buscarPorIdentificador(int identificador) throws ObjetoNoEncontradoException, ObjetoSQLMalGuardadoException, ErrorConexionBaseDatosException;
+    public Prestatario buscarPorNumeroPersonal(String identificador) throws ObjetoNoEncontradoException, ObjetoSQLMalGuardadoException, ErrorConexionBaseDatosException;
+    public String getNumeroPersonalPorIdentificador(int identificador) throws ObjetoNoEncontradoException, ErrorConexionBaseDatosException;
 }

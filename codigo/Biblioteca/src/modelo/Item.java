@@ -13,9 +13,9 @@ public abstract class Item {
     protected boolean disponibilidad;
     protected String identificador;
 
-    public Item(boolean Disponibilidad, String Identificador) {
-        this.disponibilidad = Disponibilidad;
-        this.identificador = Identificador;
+    public Item(boolean disponibilidad, String identificador) {
+        this.disponibilidad = disponibilidad;
+        this.identificador = identificador;
     }
     
     public Item(){

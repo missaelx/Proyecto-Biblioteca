@@ -1,3 +1,9 @@
+/*
+Autor:Missael Hernandez Rosado
+Fecha de creación: 07/05/2016
+Fecha de Modificación:09/05/2016
+Descripción: Esta clase solo modela los atributos de un video
+*/
 package modelo;
 
 public class Videos extends Multimedia {
@@ -5,8 +11,8 @@ public class Videos extends Multimedia {
     private String areaEducativa;
     private String titulo;
 
-    public Videos(String areaEducativa, String titulo, String Nombre, boolean Disponibilidad, String Identificador) {
-        super(Nombre, Disponibilidad, Identificador);
+    public Videos(String areaEducativa, String titulo, String nombre, boolean disponibilidad, String identificador) {
+        super(nombre, disponibilidad, identificador);
         this.areaEducativa = areaEducativa;
         this.titulo = titulo;
     }

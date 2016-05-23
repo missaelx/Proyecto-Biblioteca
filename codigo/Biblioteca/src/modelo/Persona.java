@@ -23,6 +23,14 @@ public abstract class Persona {
         this.nombre = nombre;
         this.telefono = telefono;
     }
+    
+    public Persona(DatosPersona datos){
+        this.correo = datos.getCorreo();
+        this.direccion = datos.getDireccion();
+        this.fechaDeNacimiento = datos.getFechaDeNacimiento();
+        this.nombre = datos.getNombre();
+        this.telefono = datos.getTelefono();
+    }
 
     /**
      * @return the correo

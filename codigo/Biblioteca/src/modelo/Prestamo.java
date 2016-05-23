@@ -10,69 +10,69 @@ import java.sql.Date;
 
 public class Prestamo {
 
-	private boolean Estado;
-	private Date FechaDeVencimiento;
-	private Item m_Item;
-	private Prestatario m_Prestatario;
+	private boolean estado;
+	private Date fechaDeVencimiento;
+	private Item item;
+	private Prestatario prestatario;
 
 	public Prestamo(){
 
 	}
 
     /**
-     * @return the Estado
+     * @return the estado
      */
-    public boolean isEstado() {
-        return Estado;
+    public boolean getEstado() {
+        return estado;
     }
 
     /**
-     * @param Estado the Estado to set
+     * @param estado the estado to set
      */
-    public void setEstado(boolean Estado) {
-        this.Estado = Estado;
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 
     /**
-     * @return the FechaDeVencimiento
+     * @return the fechaDeVencimiento
      */
     public Date getFechaDeVencimiento() {
-        return FechaDeVencimiento;
+        return fechaDeVencimiento;
     }
 
     /**
-     * @param FechaDeVencimiento the FechaDeVencimiento to set
+     * @param fechaDeVencimiento the fechaDeVencimiento to set
      */
-    public void setFechaDeVencimiento(Date FechaDeVencimiento) {
-        this.FechaDeVencimiento = FechaDeVencimiento;
+    public void setFechaDeVencimiento(Date fechaDeVencimiento) {
+        this.fechaDeVencimiento = fechaDeVencimiento;
     }
 
     /**
-     * @return the m_Item
+     * @return the item
      */
-    public Item getM_Item() {
-        return m_Item;
+    public Item getItem() {
+        return item;
     }
 
     /**
-     * @param m_Item the m_Item to set
+     * @param item the item to set
      */
-    public void setM_Item(Item m_Item) {
-        this.m_Item = m_Item;
+    public void setItem(Item item) {
+        this.item = item;
     }
 
     /**
-     * @return the m_Prestatario
+     * @return the prestatario
      */
-    public Prestatario getM_Prestatario() {
-        return m_Prestatario;
+    public Prestatario getPrestatario() {
+        return prestatario;
     }
 
     /**
-     * @param m_Prestatario the m_Prestatario to set
+     * @param prestatario the prestatario to set
      */
-    public void setM_Prestatario(Prestatario m_Prestatario) {
-        this.m_Prestatario = m_Prestatario;
+    public void setPrestatario(Prestatario prestatario) {
+        this.prestatario = prestatario;
     }
 
 }

@@ -1,19 +1,24 @@
+/*
+Autor:Missael Hernandez Rosado
+Fecha de creación: 07/05/2016
+Fecha de Modificación:09/05/2016
+Descripción: Esta clase solo modela los atributos de una tesis
+*/
 package modelo;
 
-import java.sql.Date;
 import java.util.Objects;
 
 public class Tesis extends Texto {
 
-    private String Titulo;
+    private String titulo;
 
-    public Tesis(String Titulo, String editorial, Date fechaPublicacion, String nombreCompletoDelAutor, int numeroDeEjemplares, int numeroDePaginas, boolean Disponibilidad, String Identificador) {
-        super(editorial, fechaPublicacion, nombreCompletoDelAutor, numeroDeEjemplares, numeroDePaginas, Disponibilidad, Identificador);
-        this.Titulo = Titulo;
+    public Tesis(String titulo, DatosTexto datos) {
+        super(datos);
+        this.titulo = titulo;
     }
     
-    public Tesis(String editorial, Date fechaPublicacion, String nombreCompletoDelAutor, int numeroDeEjemplares, int numeroDePaginas, boolean Disponibilidad, String Identificador){
-        super(editorial, fechaPublicacion, nombreCompletoDelAutor, numeroDeEjemplares, numeroDePaginas, Disponibilidad, Identificador);
+    public Tesis(DatosTexto datos){
+        super(datos);
     }
     
     public Tesis(){
@@ -24,20 +29,20 @@ public class Tesis extends Texto {
      * @return the Titulo
      */
     public String getTitulo() {
-        return Titulo;
+        return titulo;
     }
 
     /**
      * @param Titulo the Titulo to set
      */
-    public void setTitulo(String Titulo) {
-        this.Titulo = Titulo;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 79 * hash + Objects.hashCode(this.Titulo);
+        hash = 79 * hash + Objects.hashCode(this.titulo);
         return hash;
     }
 
@@ -53,7 +58,7 @@ public class Tesis extends Texto {
             return false;
         }
         final Tesis other = (Tesis) obj;
-        if (!Objects.equals(this.Titulo, other.Titulo)) {
+        if (!Objects.equals(this.titulo, other.titulo)) {
             return false;
         }
         if (!Objects.equals(this.numeroDePaginas, other.numeroDePaginas)) {

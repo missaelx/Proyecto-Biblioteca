@@ -1,44 +1,50 @@
+/*
+Autor:Missael Hernandez Rosado
+Fecha de creación: 07/05/2016
+Fecha de Modificación:09/05/2016
+Descripción: Esta clase solo modela los atributos de un programa de sftware disponible en la biblioteca
+*/
 package modelo;
 
 import java.util.ArrayList;
 
 public class Software extends Multimedia {
 
-    private ArrayList<String> Plataformas;
-    private String Version;
+    private ArrayList<String> plataformas;
+    private String version;
 
-    public Software(ArrayList<String> Plataformas, String Version, String Nombre, boolean Disponibilidad, String Identificador) {
-        super(Nombre, Disponibilidad, Identificador);
-        this.Plataformas = Plataformas;
-        this.Version = Version;
+    public Software(ArrayList<String> plataformas, String version, String nombre, boolean disponibilidad, String identificador) {
+        super(nombre, disponibilidad, identificador);
+        this.plataformas = plataformas;
+        this.version = version;
     }
 
     /**
      * @return the Plataformas
      */
     public ArrayList<String> getPlataformas() {
-        return Plataformas;
+        return plataformas;
     }
 
     /**
      * @param Plataformas the Plataformas to set
      */
-    public void setPlataformas(ArrayList<String> Plataformas) {
-        this.Plataformas = Plataformas;
+    public void setPlataformas(ArrayList<String> plataformas) {
+        this.plataformas = plataformas;
     }
 
     /**
      * @return the Version
      */
     public String getVersion() {
-        return Version;
+        return version;
     }
 
     /**
      * @param Version the Version to set
      */
-    public void setVersion(String Version) {
-        this.Version = Version;
+    public void setVersion(String version) {
+        this.version = version;
     }
 
     

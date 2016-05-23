@@ -9,25 +9,27 @@ package modelo;
 
 public class Multimedia extends Item {
 
-    private String Nombre;
+    private String nombre;
 
-    public Multimedia(String Nombre, boolean Disponibilidad, String Identificador) {
-        super(Disponibilidad, Identificador);
-        this.Nombre = Nombre;
+    public Multimedia(String nombre, boolean disponibilidad, String identificador) {
+        super(disponibilidad, identificador);
+        this.nombre = nombre;
     }
 
     /**
-     * @return the Nombre
+     * Este método retorna una cadena que indica  el nombre del objeto multimedia.
+     * @return the nombre
      */
     public String getNombre() {
-        return Nombre;
+        return nombre;
     }
 
     /**
-     * @param Nombre the Nombre to set
+     * Este método sirve para colocar una cadena que indica el nombre del objeto multimedia.
+     * @param nombre the nombre to set
      */
-    public void setNombre(String Nombre) {
-        this.Nombre = Nombre;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
 

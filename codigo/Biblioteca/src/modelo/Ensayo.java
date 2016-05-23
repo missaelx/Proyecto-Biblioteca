@@ -13,16 +13,17 @@ public class Ensayo extends Texto {
     private String lugarDePublicacion;
     private String titulo;
 //modelo info
-    public Ensayo(String lugarDePublicacion, String titulo, String editorial, Date fechaPublicacion, String nombreCompletoDelAutor, int numeroDeEjemplares, int numeroDePaginas, boolean Disponibilidad, String Identificador) {
-        super(editorial, fechaPublicacion, nombreCompletoDelAutor, numeroDeEjemplares, numeroDePaginas, Disponibilidad, Identificador);
+    public Ensayo(String lugarDePublicacion, String titulo, DatosTexto datos) {
+        super(datos);
         this.lugarDePublicacion = lugarDePublicacion;
         this.titulo = titulo;
     }
 
-    public Ensayo(String editorial, Date fechaPublicacion, String nombreCompletoDelAutor, int numeroDeEjemplares, int numeroDePaginas, boolean Disponibilidad, String Identificador) {
-        super(editorial, fechaPublicacion, nombreCompletoDelAutor, numeroDeEjemplares, numeroDePaginas, Disponibilidad, Identificador);
+    public Ensayo(DatosTexto datos) {
+        super(datos);
     }
-    /**
+     /**
+     * Este método retorna una cadena con la dirección del lugar físico donde se publicó.
      * @return the lugarDePublicacion
      */
     public String getLugarDePublicacion() {
@@ -30,6 +31,7 @@ public class Ensayo extends Texto {
     }
 
     /**
+     * Este método sirve para colocar una cadena con la dirección del lugar físico donde se publicó.
      * @param lugarDePublicacion the lugarDePublicacion to set
      */
     public void setLugarDePublicacion(String lugarDePublicacion) {
@@ -37,6 +39,7 @@ public class Ensayo extends Texto {
     }
 
     /**
+     * Este método retorna una cadena con el título del ensayo.
      * @return the titulo
      */
     public String getTitulo() {
@@ -44,6 +47,7 @@ public class Ensayo extends Texto {
     }
 
     /**
+     * Este método sirve para colocar una cadena con el título del sensayo.
      * @param titulo the titulo to set
      */
     public void setTitulo(String titulo) {

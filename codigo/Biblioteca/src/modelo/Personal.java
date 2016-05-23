@@ -13,9 +13,12 @@ public class Personal extends Persona {
 
     private String numeroDePersonal;
     private String tipo; //administrador o bibliotecario
-    public Personal(String numeroDePersonal, String correo, String direccion, Date fechaDeNacimiento, String nombre, String telefono, String tipo) {
-        super(correo, direccion, fechaDeNacimiento, nombre, telefono);
+    private int identificador;
+    
+    public Personal(int identificador,String numeroDePersonal, String tipo, DatosPersona datos) {
+        super(datos);
         this.numeroDePersonal = numeroDePersonal;
+        this.identificador = identificador;
         this.tipo = tipo;
     }
 
@@ -50,8 +53,8 @@ public class Personal extends Persona {
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 53 * hash + Objects.hashCode(this.numeroDePersonal);
-        hash = 53 * hash + Objects.hashCode(this.tipo);
+        hash = 53 * hash + Objects.hashCode(this.getNumeroDePersonal());
+        hash = 53 * hash + Objects.hashCode(this.getTipo());
         return hash;
     }
 
@@ -90,6 +93,20 @@ public class Personal extends Persona {
             return false;
         }
         return true;
+    }
+
+    /**
+     * @return the idenntificador
+     */
+    public int getIdentificador() {
+        return identificador;
+    }
+
+    /**
+     * @param idenntificador the idenntificador to set
+     */
+    public void setIdentificador(int idenntificador) {
+        this.identificador = idenntificador;
     }
     
     

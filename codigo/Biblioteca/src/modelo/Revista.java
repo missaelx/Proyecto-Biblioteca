@@ -1,5 +1,11 @@
+/*
+Autor:Missael Hernandez Rosado
+Fecha de creación: 07/05/2016
+Fecha de Modificación:09/05/2016
+Descripción: Esta clase solo modela los atributos de una revista
+*/
+
 package modelo;
-import java.sql.Date;
 import java.util.Objects;
 
 public class Revista extends Texto {
@@ -7,14 +13,14 @@ public class Revista extends Texto {
     private String nombreDeLaRevista;
     private String numeroDeRevista;
 
-    public Revista(String nombreDeLaRevista, String numeroDeRevista, String editorial, Date fechaPublicacion, String nombreCompletoDelAutor, int numeroDeEjemplares, int numeroDePaginas, boolean Disponibilidad, String Identificador) {
-        super(editorial, fechaPublicacion, nombreCompletoDelAutor, numeroDeEjemplares, numeroDePaginas, Disponibilidad, Identificador);
+    public Revista(String nombreDeLaRevista, String numeroDeRevista, DatosTexto datos) {
+        super(datos);
         this.nombreDeLaRevista = nombreDeLaRevista;
         this.numeroDeRevista = numeroDeRevista;
     }
 
-    public Revista(String editorial, Date fechaPublicacion, String nombreCompletoDelAutor, int numeroDeEjemplares, int numeroDePaginas, boolean Disponibilidad, String Identificador) {
-        super(editorial, fechaPublicacion, nombreCompletoDelAutor, numeroDeEjemplares, numeroDePaginas, Disponibilidad, Identificador);
+    public Revista(DatosTexto datos) {
+        super(datos);
     }
     
     public Revista(){
@@ -71,6 +77,29 @@ public class Revista extends Texto {
             return false;
         }
         final Revista other = (Revista) obj;
+        
+        if (!Objects.equals(this.disponibilidad, other.disponibilidad)) {
+            return false;
+        }
+        if (!Objects.equals(this.identificador, other.identificador)) {
+            return false;
+        }
+        if (!Objects.equals(this.editorial, other.editorial)) {
+            return false;
+        }
+        if (!Objects.equals(this.fechaPublicacion, other.fechaPublicacion)) {
+            return false;
+        }
+        if (!Objects.equals(this.nombreCompletoDelAutor, other.nombreCompletoDelAutor)) {
+            return false;
+        }
+        if (!Objects.equals(this.numeroDeEjemplares, other.numeroDeEjemplares)) {
+            return false;
+        }
+        if (!Objects.equals(this.numeroDePaginas, other.numeroDePaginas)) {
+            return false;
+        }
+        
         if (!Objects.equals(this.nombreDeLaRevista, other.nombreDeLaRevista)) {
             return false;
         }
@@ -79,6 +108,12 @@ public class Revista extends Texto {
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "Revista{" + "nombreDeLaRevista=" + nombreDeLaRevista + ", numeroDeRevista=" + numeroDeRevista + '}';
+    }
+    
     
     
 

@@ -26,30 +26,21 @@ public class PrestamoDAOImpl implements PrestamoDAO{
     public PrestamoDAOImpl() {
         conexion = new Conexion();
     }
-    
 
     @Override
-    public Prestamo buscarPorIdentificador(String identificador) throws ObjetoNoEncontradoException, ObjetoSQLMalGuardadoException, ErrorConexionBaseDatosException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates. 
+    public Prestamo buscarPorIdentificador(int idPrestamo) throws ObjetoNoEncontradoException, ObjetoSQLMalGuardadoException, ErrorConexionBaseDatosException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getNumeroPrestamosDePrestatario(String numeroPersonal) throws ObjetoNoEncontradoException, ObjetoSQLMalGuardadoException, ErrorConexionBaseDatosException {
+        
     }
 
     @Override
     public boolean RegistrarNuevoPrestamo(String idPrestatario, String idPersonalBibliotecario, Prestamo prestamo) throws ObjetoNoEncontradoException, ErrorConexionBaseDatosException, ObjetoSQLMalGuardadoException, PrestatarioSinPrestamosDisponiblesException {
-       boolean resultado = false; 
-       
-       PrestatarioDAOImpl prestatarioDAO = new PrestatarioDAOImpl();
-       Prestatario prestatario = prestatarioDAO.buscarPorIdentificador(idPrestatario);
-       
-       if(prestatario.getNumeroDeTextoPrestados() >= prestatario.getNumeroDeTextos()){
-           throw new PrestatarioSinPrestamosDisponiblesException();
-       }
-       
-       
-       
-       
-       
-
-       return resultado;
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+
 }

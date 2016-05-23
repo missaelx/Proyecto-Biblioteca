@@ -3,6 +3,7 @@
 */
 package accesodatos.dao.impl;
 
+import Definiciones.TiposDePrestatarios;
 import Excepciones.ErrorConexionBaseDatosException;
 import Excepciones.ObjetoNoEncontradoException;
 import Excepciones.ObjetoSQLMalGuardadoException;
@@ -13,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import modelo.DatosPersona;
 import modelo.Prestatario;
 import modelo.TipoPrestatario;
 
@@ -33,28 +35,35 @@ public class PrestatarioDAOImpl implements PrestatarioDAO{
     
 
     @Override
-    public Prestatario buscarPorIdentificador(String identificador) throws ObjetoNoEncontradoException, ObjetoSQLMalGuardadoException, ErrorConexionBaseDatosException {
+    public Prestatario buscarPorIdentificador(int identificador) throws ObjetoNoEncontradoException, ObjetoSQLMalGuardadoException, ErrorConexionBaseDatosException {
         Prestatario resultado = null;
         try{
             connection = conexion.obtenerConexion();
             PreparedStatement sentencia;
-            sentencia = connection.prepareStatement("select * from TBPrestatario where numeroPersonal = ?");
-            sentencia.setString(1, identificador);
+            sentencia = connection.prepareStatement("select * from TBPrestatario where idPersonal = ?");
+            sentencia.setInt(1, identificador);
             resultados = sentencia.executeQuery();
             if(resultados.first()){
-                switch (resultados.getString("tipo")) {
-                    case "Alumno":
-                        resultado = new Prestatario(resultados.getString("numeroPersonal"), TipoPrestatario.ALUMNO, resultados.getInt("textoPrestados"), resultados.getDate("vigencia"), resultados.getString("correo"), resultados.getString("direccion"), resultados.getDate("fechaNacimiento"), resultados.getString("nombre"), resultados.getString("telefono"));
+                DatosPersona datos = new DatosPersona();
+                datos.setCorreo(resultados.getString("correo"));
+                datos.setDireccion(resultados.getString("direccion"));
+                datos.setFechaDeNacimiento(resultados.getDate("fechaNacimiento"));
+                datos.setNombre(resultados.getString("nombre"));
+                datos.setTelefono(resultados.getString("telefono"));
+                
+                switch (resultados.getInt("tipo")) {
+                    case 1:
+                        resultado = new Prestatario(identificador, resultados.getString("numeroPersonal"), TipoPrestatario.ALUMNO, getNumeroPrestamos(identificador),resultados.getDate("vigencia"),  datos);
                         break;
-                    case "Maestro":
-                        resultado = new Prestatario(resultados.getString("numeroPersonal"), TipoPrestatario.MAESTRO, resultados.getInt("textoPrestados"), resultados.getDate("vigencia"), resultados.getString("correo"), resultados.getString("direccion"), resultados.getDate("fechaNacimiento"), resultados.getString("nombre"), resultados.getString("telefono"));
+                    case 2:
+                        resultado = new Prestatario(identificador, resultados.getString("numeroPersonal"), TipoPrestatario.MAESTRO, getNumeroPrestamos(identificador),resultados.getDate("vigencia"),  datos);
                         break;
                     default:
                         throw new ObjetoSQLMalGuardadoException("Tipo de prestatario mal guardado");
                 }
                 
             } else {
-                throw new ObjetoNoEncontradoException("Registros vacios", identificador);
+                throw new ObjetoNoEncontradoException("Registros vacios", "" + identificador);
             }
         } catch (SQLException ex) {
             throw new ObjetoSQLMalGuardadoException(ex.getMessage());
@@ -65,4 +74,19 @@ public class PrestatarioDAOImpl implements PrestatarioDAO{
         return resultado;
     }
     
+    private int getNumeroPrestamos(int idPrestatario){
+        int resultado = 0;
+        
+        return resultado;
+    }
+
+    @Override
+    public Prestatario buscarPorNumeroPersonal(String identificador) throws ObjetoNoEncontradoException, ObjetoSQLMalGuardadoException, ErrorConexionBaseDatosException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getNumeroPersonalPorIdentificador(int identificador) throws ObjetoNoEncontradoException, ErrorConexionBaseDatosException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

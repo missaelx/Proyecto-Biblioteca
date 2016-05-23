@@ -10,16 +10,16 @@ package modelo;
 import java.sql.Date;
 
 public class Periodico extends Texto {
-
+    
     private String nombrePeriodico;
 
-    public Periodico(String nombrePeriodico, String editorial, Date fechaPublicacion, String nombreCompletoDelAutor, int numeroDeEjemplares, int numeroDePaginas, boolean Disponibilidad, String Identificador) {
-        super(editorial, fechaPublicacion, nombreCompletoDelAutor, numeroDeEjemplares, numeroDePaginas, Disponibilidad, Identificador);
+    public Periodico(String nombrePeriodico,DatosTexto datos) {
+        super(datos);
         this.nombrePeriodico = nombrePeriodico;
     }
     
-    public Periodico(String editorial, Date fechaPublicacion, String nombreCompletoDelAutor, int numeroDeEjemplares, int numeroDePaginas, boolean Disponibilidad, String Identificador) {
-        super(editorial, fechaPublicacion, nombreCompletoDelAutor, numeroDeEjemplares, numeroDePaginas, Disponibilidad, Identificador);
+    public Periodico(DatosTexto datos) {
+        super(datos);
     }
 
     public Periodico(){

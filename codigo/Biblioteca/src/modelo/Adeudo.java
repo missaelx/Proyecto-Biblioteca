@@ -12,8 +12,8 @@ public class Adeudo {
     private Date fechaInicial;
     private double monto;
     private boolean tipo;
-    private Prestatario m_Prestatario;
-    private Prestamo m_Prestamo;
+    private Prestatario prestatario;
+    private Prestamo prestamo;
     
     
 
@@ -71,34 +71,34 @@ public class Adeudo {
     /**
      * Este metodo retorna al prestatario de la deuda, sirve para identificar
      * al adeudador
-     * @return el m_Prestatario
+     * @return el prestatario
      */
-    public Prestatario getM_Prestatario() {
-        return m_Prestatario;
+    public Prestatario getPrestatario() {
+        return prestatario;
     }
 
     /**
      * Este metodo sirve para colocar el prestatario del adeudo que es el adeudador 
-     * @param m_Prestatario el m_Prestatario a guardar
+     * @param prestatario el prestatario a guardar
      */
-    public void setM_Prestatario(Prestatario m_Prestatario) {
-        this.m_Prestatario = m_Prestatario;
+    public void setPrestatario(Prestatario prestatario) {
+        this.prestatario = prestatario;
     }
 
     /**
      * Este metodo retorna el prestamo ligado a esta deauda
-     * @return el m_Prestamo
+     * @return el prestamo
      */
-    public Prestamo getM_Prestamo() {
-        return m_Prestamo;
+    public Prestamo getPrestamo() {
+        return prestamo;
     }
 
     /**
      * Este metodo se utiliza para colocar un prestamo que se ligará a la deuda
-     * @param m_Prestamo el m_Prestamo a guardar
+     * @param prestamo el prestamo a guardar
      */
-    public void setM_Prestamo(Prestamo m_Prestamo) {
-        this.m_Prestamo = m_Prestamo;
+    public void setPrestamo(Prestamo prestamo) {
+        this.prestamo = prestamo;
     }
 
 
