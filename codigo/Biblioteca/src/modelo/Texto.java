@@ -10,7 +10,7 @@ import java.sql.Date;
 import java.util.Objects;
 
 
-public class Texto extends Item {
+public abstract class Texto extends Item {
 
     
     protected String editorial;
@@ -147,6 +147,10 @@ public class Texto extends Item {
         return true;
     }
 
-    
-   
+    /**
+     *
+     * @param fechaPrestamo
+     * @return
+     */
+    public abstract  Date getFechaVencimientoDesdeFecha(Date fechaPrestamo);
 }

@@ -6,6 +6,7 @@ Descripción: Esta clase solo modela los atributos de una revista
 */
 
 package modelo;
+import java.sql.Date;
 import java.util.Objects;
 
 public class Revista extends Texto {
@@ -116,6 +117,9 @@ public class Revista extends Texto {
     
     
     
-
+    @Override
+    public Date getFechaVencimientoDesdeFecha(Date fechaPrestamo) {
+        return new Date(604800000L + fechaPrestamo.getTime()); // se suman 7 dias a la fecha que se le pasa
+    }
     
 }

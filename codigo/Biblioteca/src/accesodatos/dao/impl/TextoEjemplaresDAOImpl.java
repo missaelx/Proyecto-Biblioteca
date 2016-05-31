@@ -5,14 +5,13 @@ import Excepciones.ErrorConexionBaseDatosException;
 import Excepciones.ObjetoNoEncontradoException;
 import Excepciones.ObjetoSQLMalGuardadoException;
 import accesodatos.Conexion;
+import accesodatos.dao.TextoDAO;
 import accesodatos.dao.TextoEjemplaresDAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import modelo.TextoEjemplar;
 
 /**
@@ -92,6 +91,34 @@ public class TextoEjemplaresDAOImpl implements TextoEjemplaresDAO {
             resultado = resultados.getInt(1);
         } catch (SQLException ex) { 
             System.out.println(ex.getMessage());
+            throw new ErrorConexionBaseDatosException();
+        }
+        
+        return resultado;
+    }
+
+    @Override
+    public String getTipoEjemplar(String idEjemplar) throws ObjetoNoEncontradoException, ErrorConexionBaseDatosException{
+        String resultado = "";
+        
+        TextoDAO textoDAO = new TextoDAOImpl();
+        
+        try {
+            connection = conexion.obtenerConexion();
+            PreparedStatement sentencia;
+            sentencia = connection.prepareStatement("SELECT idTexto FROM mydb.TBTextoEjemplares where idEjemplar = ?");
+            sentencia.setString(1, idEjemplar);
+            resultados = sentencia.executeQuery();
+            if(resultados.first()) {
+                resultado = resultados.getString("idTexto");
+                resultado = textoDAO.getTipoTextoPorIdentificador(resultado);
+            } else {
+                throw new ObjetoNoEncontradoException();
+            }
+            
+        } catch (SQLException | NullPointerException ex) { 
+            System.out.println(ex.getMessage());
+            throw new ErrorConexionBaseDatosException();
         }
         
         return resultado;

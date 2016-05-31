@@ -22,6 +22,9 @@ public class Ensayo extends Texto {
     public Ensayo(DatosTexto datos) {
         super(datos);
     }
+    public Ensayo(){
+        
+    }
      /**
      * Este método retorna una cadena con la dirección del lugar físico donde se publicó.
      * @return the lugarDePublicacion
@@ -52,6 +55,11 @@ public class Ensayo extends Texto {
      */
     public void setTitulo(String titulo) {
         this.titulo = titulo;
+    }
+
+    @Override
+    public Date getFechaVencimientoDesdeFecha(Date fechaPrestamo) {
+        return new Date(604800000L + fechaPrestamo.getTime()); // se suman 7 dias a la fecha que se le pasa
     }
     
     

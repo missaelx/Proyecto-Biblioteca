@@ -6,6 +6,7 @@ Descripción: Esta clase solo modela los atributos de una tesis
 */
 package modelo;
 
+import java.sql.Date;
 import java.util.Objects;
 
 public class Tesis extends Texto {
@@ -85,6 +86,9 @@ public class Tesis extends Texto {
         return true;
     }
     
-    
+    @Override
+    public Date getFechaVencimientoDesdeFecha(Date fechaPrestamo) {
+        return new Date(604800000L + fechaPrestamo.getTime()); // se suman 7 dias a la fecha que se le pasa
+    }
         
 }

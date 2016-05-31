@@ -133,4 +133,28 @@ public class TextoDAOImpl implements TextoDAO{
         TextoEjemplaresDAO ejemplaresDAO = new TextoEjemplaresDAOImpl();
         return ejemplaresDAO.getDisponiblidad(idTexto);
     }
+
+    @Override
+    public String getTipoTextoPorIdentificador(String identificador) throws ObjetoNoEncontradoException, ErrorConexionBaseDatosException{
+        String resultado = "";
+        
+        try {
+            connection = conexion.obtenerConexion();
+            PreparedStatement sentencia;
+            sentencia = connection.prepareStatement("select nombre from tbtipostextos inner join tbtextos on tbtipostextos.idtipo = tbtextos.tipo where idtexto = ?");
+            sentencia.setString(1, identificador);
+            resultados = sentencia.executeQuery();
+            if(resultados.first()) {
+                resultado = resultados.getString("nombre");
+            } else {
+                throw new ObjetoNoEncontradoException();
+            }
+            
+        } catch (SQLException | NullPointerException ex) { 
+            System.out.println(ex.getMessage());
+            throw new ErrorConexionBaseDatosException();
+        }
+        
+        return resultado;
+    }
 }

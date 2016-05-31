@@ -10,14 +10,14 @@ import java.sql.Date;
 
 public class Prestamo {
 
-	private boolean estado;
-	private Date fechaDeVencimiento;
-	private Item item;
-	private Prestatario prestatario;
+    private boolean estado;
+    private Date fechaDeVencimiento;
+    private Item item;
+    private Prestatario prestatario;
 
-	public Prestamo(){
+    public Prestamo() {
 
-	}
+    }
 
     /**
      * @return the estado

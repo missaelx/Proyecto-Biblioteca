@@ -173,5 +173,15 @@ public class TextoDAOImplTest {
         Texto result = instance.buscarPorIdentificador(identificador);
         assertEquals(expResult, result);
     }
+
+    @Test
+    public void testGetTipoTextoPorIdentificador() throws Exception {
+        System.out.println("getTipoTextoPorIdentificador");
+        String identificador = "1"; //periodico
+        TextoDAOImpl instance = new TextoDAOImpl();
+        String expResult = "Periodico";
+        String result = instance.getTipoTextoPorIdentificador(identificador);
+        assertEquals(expResult, result);
+    }
     
 }

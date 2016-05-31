@@ -4,6 +4,7 @@ import Excepciones.ErrorConexionBaseDatosException;
 import Excepciones.ObjetoNoEncontradoException;
 import Excepciones.ObjetoSQLMalGuardadoException;
 import Excepciones.PrestatarioSinPrestamosDisponiblesException;
+import Excepciones.RegistroMalFormadoException;
 import modelo.Prestamo;
 import modelo.Prestatario;
 
@@ -13,6 +14,6 @@ import modelo.Prestatario;
  */
 public interface PrestamoDAO {
     public Prestamo buscarPorIdentificador(int idPrestamo) throws ObjetoNoEncontradoException, ObjetoSQLMalGuardadoException, ErrorConexionBaseDatosException;
-    public int getNumeroPrestamosDePrestatario(String numeroPersonal) throws ObjetoNoEncontradoException, ObjetoSQLMalGuardadoException, ErrorConexionBaseDatosException;
-    public boolean RegistrarNuevoPrestamo(String idPrestatario, String idPersonalBibliotecario, Prestamo prestamo) throws ObjetoNoEncontradoException, ErrorConexionBaseDatosException, ObjetoSQLMalGuardadoException, PrestatarioSinPrestamosDisponiblesException;
+    public int getNumeroPrestamosDePrestatario(String numeroPersonal) throws ObjetoNoEncontradoException, ErrorConexionBaseDatosException;
+    public boolean RegistrarNuevoPrestamo(int idPrestatario, int idPersonalBibliotecario, String idEjemplar) throws RegistroMalFormadoException, ErrorConexionBaseDatosException, PrestatarioSinPrestamosDisponiblesException;
 }

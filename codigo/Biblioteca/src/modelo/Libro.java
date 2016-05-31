@@ -116,7 +116,11 @@ public class Libro extends Texto {
     public String toString() {
         return "Libro{" + "pais=" + pais + ", titulo=" + titulo + '}';
     }
-
+    
+    @Override
+    public Date getFechaVencimientoDesdeFecha(Date fechaPrestamo) {
+        return new Date(604800000L + fechaPrestamo.getTime()); // se suman 7 dias a la fecha que se le pasa
+    }
 
     
 }

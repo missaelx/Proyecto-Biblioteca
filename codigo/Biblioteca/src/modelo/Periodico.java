@@ -39,6 +39,9 @@ public class Periodico extends Texto {
         this.nombrePeriodico = nombrePeriodico;
     }
     
-    
+    @Override
+    public Date getFechaVencimientoDesdeFecha(Date fechaPrestamo) {
+        return new Date(604800000L + fechaPrestamo.getTime()); // se suman 7 dias a la fecha que se le pasa
+    }
     
 }

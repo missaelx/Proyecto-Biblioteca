@@ -52,5 +52,26 @@ public class TextoEjemplaresDAOImplTest {
         boolean result = instance.getDisponiblidad(idTexto);
         assertEquals(expResult, result);
     }
+
+    //@Test
+    public void testBuscarEjemplaresPrestados() throws Exception {
+        System.out.println("buscarEjemplaresPrestados");
+        int idPrestatario = 0;
+        TextoEjemplaresDAOImpl instance = new TextoEjemplaresDAOImpl();
+        int expResult = 0;
+        int result = instance.buscarEjemplaresPrestados(idPrestatario);
+        assertEquals(expResult, result);
+        fail("The test case is a prototype.");
+    }
+
+    @Test
+    public void testGetTipoEjemplar() throws Exception {
+        System.out.println("getTipoEjemplar");
+        String idEjemplar = "EJ1-1";
+        TextoEjemplaresDAOImpl instance = new TextoEjemplaresDAOImpl();
+        String expResult = "Periodico";
+        String result = instance.getTipoEjemplar(idEjemplar);
+        assertEquals(expResult, result);
+    }
     
 }
