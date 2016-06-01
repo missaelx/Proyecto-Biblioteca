@@ -6,6 +6,7 @@ import Excepciones.ObjetoSQLMalGuardadoException;
 import Excepciones.PrestatarioSinPrestamosDisponiblesException;
 import Excepciones.RegistroMalFormadoException;
 import accesodatos.Conexion;
+import accesodatos.dao.PersonalDAO;
 import accesodatos.dao.PrestamoDAO;
 import accesodatos.dao.PrestatarioDAO;
 import accesodatos.dao.TextoEjemplaresDAO;
@@ -20,6 +21,7 @@ import modelo.Ensayo;
 import modelo.Libro;
 import modelo.Periodico;
 import modelo.Prestamo;
+import modelo.Prestatario;
 import modelo.Revista;
 import modelo.Tesis;
 
@@ -65,6 +67,10 @@ public class PrestamoDAOImpl implements PrestamoDAO{
 
     @Override
     public boolean RegistrarNuevoPrestamo(int idPrestatario, int idPersonalBibliotecario, String idEjemplar) throws RegistroMalFormadoException, ErrorConexionBaseDatosException, PrestatarioSinPrestamosDisponiblesException {
+        if(!validarParametrosDeInsercionPrestamo(idPrestatario, idPersonalBibliotecario, idEjemplar)) {
+            throw new RegistroMalFormadoException("Parametros invalidos");
+        }
+        
         boolean resultado = false;
         
         try {
@@ -103,6 +109,10 @@ public class PrestamoDAOImpl implements PrestamoDAO{
             
             resultado = sentencia.executeUpdate() > 0; // preguntamos si las filas afectadas fueron mas de 0
             
+            //modificamos la disponibilidad del ejemplar
+            TextoEjemplaresDAO ejemplaresDAO = new TextoEjemplaresDAOImpl();
+            ejemplaresDAO.actualizarDisponibilidadEjemplar(idEjemplar, false);
+            
         } catch (SQLException | NullPointerException ex) {
             throw new ErrorConexionBaseDatosException(ex.getMessage());
         } catch (ObjetoNoEncontradoException ex) {
@@ -123,6 +133,25 @@ public class PrestamoDAOImpl implements PrestamoDAO{
     private String getTipoEjemplar(String idEjemplar) throws ObjetoNoEncontradoException, ErrorConexionBaseDatosException{
         TextoEjemplaresDAO txtEjemplaresDAO = new TextoEjemplaresDAOImpl();
         return txtEjemplaresDAO.getTipoEjemplar(idEjemplar);
+    }
+    
+    private boolean validarParametrosDeInsercionPrestamo(int idPrestatario, int idPersonalBibliotecario, String idEjemplar){
+        boolean prestatarioValido, bibliotecarioValido, ejemplarValido;
+        
+        //verificamos prestatarios
+        PrestatarioDAO prestatarioDAO = new PrestatarioDAOImpl();
+        try {
+            Prestatario prestatario = prestatarioDAO.buscarPorIdentificador(idPrestatario);
+            prestatarioValido = prestatario.tienesPrestamosDisponibles();
+            PersonalDAO personal = new PersonalDAOImpl();
+            bibliotecarioValido = personal.buscarPorIdentificador(idPrestatario) != null;
+            TextoEjemplaresDAO ejemplaresDAO = new TextoEjemplaresDAOImpl();
+            ejemplarValido = ejemplaresDAO.getDisponiblidad(idEjemplar);
+        } catch (ObjetoNoEncontradoException | ObjetoSQLMalGuardadoException | ErrorConexionBaseDatosException ex) {
+            return false;
+        }
+        
+        return prestatarioValido && bibliotecarioValido && ejemplarValido;
     }
 
 }

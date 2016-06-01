@@ -46,9 +46,9 @@ public class TextoEjemplaresDAOImplTest {
     @Test
     public void testGetDisponiblidad() {
         System.out.println("getDisponiblidad");
-        String idTexto = "1";
+        String idTexto = "EJ1-1";
         TextoEjemplaresDAOImpl instance = new TextoEjemplaresDAOImpl();
-        boolean expResult = true;
+        boolean expResult = false;
         boolean result = instance.getDisponiblidad(idTexto);
         assertEquals(expResult, result);
     }

@@ -130,8 +130,21 @@ public class TextoDAOImpl implements TextoDAO{
     }
     
     private boolean getDisponibilidad(String idTexto){
-        TextoEjemplaresDAO ejemplaresDAO = new TextoEjemplaresDAOImpl();
-        return ejemplaresDAO.getDisponiblidad(idTexto);
+        int resultado = 0;
+        
+        try {
+            connection = conexion.obtenerConexion();
+            PreparedStatement sentencia;
+            sentencia = connection.prepareStatement("SELECT count(*) FROM mydb.TBTextoEjemplares where idtexto = ? and disponible = 1");
+            sentencia.setString(1, idTexto);
+            resultados = sentencia.executeQuery();
+            resultados.first();
+            resultado = resultados.getInt(1);
+        } catch (SQLException ex) { 
+            System.out.println(ex.getMessage());
+        }
+        
+        return resultado > 0;
     }
 
     @Override

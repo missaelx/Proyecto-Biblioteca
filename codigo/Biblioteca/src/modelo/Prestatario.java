@@ -159,5 +159,7 @@ public class Prestatario extends Persona {
         this.numeroPersonal = numeroPersonal;
     }
     
-    
+    public boolean tienesPrestamosDisponibles(){
+        return numeroDeTextoPrestados < numeroDeTextos;
+    }
 }

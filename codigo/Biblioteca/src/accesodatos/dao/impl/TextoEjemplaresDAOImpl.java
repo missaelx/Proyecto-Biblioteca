@@ -59,22 +59,22 @@ public class TextoEjemplaresDAOImpl implements TextoEjemplaresDAO {
     }
 
     @Override
-    public boolean getDisponiblidad(String idTexto) {
-        int resultado = 0;
+    public boolean getDisponiblidad(String idEjemplar) {
+        boolean resultado = false;
         
         try {
             connection = conexion.obtenerConexion();
             PreparedStatement sentencia;
-            sentencia = connection.prepareStatement("SELECT count(*) FROM mydb.TBTextoEjemplares where idtexto = ? and disponible = 1");
-            sentencia.setString(1, idTexto);
+            sentencia = connection.prepareStatement("SELECT disponible FROM mydb.TBTextoEjemplares where idejemplar = ?");
+            sentencia.setString(1, idEjemplar);
             resultados = sentencia.executeQuery();
             resultados.first();
-            resultado = resultados.getInt(1);
-        } catch (SQLException ex) { 
+            resultado = resultados.getBoolean(1);
+        } catch (SQLException | NullPointerException ex) { 
             System.out.println(ex.getMessage());
         }
         
-        return resultado > 0;
+        return resultado;
     }
 
     @Override
@@ -122,6 +122,23 @@ public class TextoEjemplaresDAOImpl implements TextoEjemplaresDAO {
         }
         
         return resultado;
+    }
+
+    @Override
+    public boolean actualizarDisponibilidadEjemplar(String idEjemplar, boolean nuevoEstado) throws ObjetoNoEncontradoException, ErrorConexionBaseDatosException {
+        int lineasAfectadas = 0;
+        try {
+            connection = conexion.obtenerConexion();
+            PreparedStatement sentencia;
+            sentencia = connection.prepareStatement("update tbtextoejemplares set disponible=? where idejemplar = ?");
+            sentencia.setBoolean(1, nuevoEstado);
+            sentencia.setString(2, idEjemplar);
+            lineasAfectadas = sentencia.executeUpdate();
+        } catch (SQLException | NullPointerException ex) {
+            System.out.println(ex.getMessage());
+        }
+        
+        return lineasAfectadas > 0;
     }
     
 }

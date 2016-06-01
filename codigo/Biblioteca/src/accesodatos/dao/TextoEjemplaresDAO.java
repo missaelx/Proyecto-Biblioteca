@@ -17,4 +17,5 @@ public interface TextoEjemplaresDAO {
     public TextoEjemplar buscarTextoEjemplarPorIdentificador(String identificador) throws ObjetoNoEncontradoException, ObjetoSQLMalGuardadoException, ErrorConexionBaseDatosException;
     public void actualizarTextoEjemplar(TextoEjemplar ejemplar) throws ObjetoNoEncontradoException, ErrorActualizarException, ErrorConexionBaseDatosException;
     public String getTipoEjemplar(String idEjemplar) throws ObjetoNoEncontradoException, ErrorConexionBaseDatosException;
+    public boolean actualizarDisponibilidadEjemplar(String idEjemplar, boolean nuevoEstado) throws ObjetoNoEncontradoException, ErrorConexionBaseDatosException;
 }
