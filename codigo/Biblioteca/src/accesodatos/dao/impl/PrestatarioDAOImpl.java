@@ -1,9 +1,12 @@
 /*
-
+Autor:Missael Hernandez Rosado
+Fecha de creación: 07/05/2016
+Fecha de Modificación:09/05/2016
+Descripción: Esta clase implementa las funciones de su respectivo DAO, Prestatario.
 */
+
 package accesodatos.dao.impl;
 
-import Definiciones.TiposDePrestatarios;
 import Excepciones.ErrorConexionBaseDatosException;
 import Excepciones.ObjetoNoEncontradoException;
 import Excepciones.ObjetoSQLMalGuardadoException;

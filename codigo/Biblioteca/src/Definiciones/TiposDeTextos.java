@@ -1,6 +1,9 @@
-/**
- * anotaciones para el proyecto, se sugiere borrar en la entrega
- */
+/*
+Autor:Missael Hernandez Rosado
+Fecha de creación: 07/05/2016
+Fecha de Modificación:09/05/2016
+Descripción: Esta define los identificadores de cada tipo de texto, esto es quivalente a lo mostrado en la tabla TBTiposTexto
+*/
 
 package Definiciones;
 

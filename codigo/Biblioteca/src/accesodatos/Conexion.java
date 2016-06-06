@@ -1,3 +1,11 @@
+/*
+Autor:Missael Hernandez Rosado
+Fecha de creación: 07/05/2016
+Fecha de Modificación:09/05/2016
+Descripción: Esta clase define la conexion con la base de datos
+*/
+
+
 package accesodatos;
 
 import java.sql.Connection;

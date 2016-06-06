@@ -1,8 +1,14 @@
+/*
+Autor:Missael Hernandez Rosado
+Fecha de creación: 07/05/2016
+Fecha de Modificación:09/05/2016
+Descripción: Esta clase implementa las funciones de su respectivo DAO, TBTiposPersonal.
+*/
+
 package accesodatos.dao.impl;
 
 import Excepciones.ErrorConexionBaseDatosException;
 import Excepciones.ObjetoNoEncontradoException;
-import Excepciones.ObjetoSQLMalGuardadoException;
 import accesodatos.Conexion;
 import accesodatos.dao.TBTiposPersonalDAO;
 import java.sql.Connection;

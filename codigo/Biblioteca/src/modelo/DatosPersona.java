@@ -21,21 +21,21 @@ public class DatosPersona {
     private String telefono;
 
     /**
-     * @return the correo
+     * @return El correo que se registro
      */
     public String getCorreo() {
         return correo;
     }
 
     /**
-     * @param correo the correo to set
+     * @param correo El correo a guardar
      */
     public void setCorreo(String correo) {
         this.correo = correo;
     }
 
     /**
-     * @return the direccion
+     * @return la direccion
      */
     public String getDireccion() {
         return direccion;

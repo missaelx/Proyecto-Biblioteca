@@ -1,5 +1,13 @@
+/*
+Autor:Missael Hernandez Rosado
+Fecha de creación: 07/05/2016
+Fecha de Modificación:09/05/2016
+Descripción: Esta clase implementa las funciones de su respectivo DAO, Prestamo.
+*/
+
 package accesodatos.dao.impl;
 
+import Excepciones.EjemplarPrestadoException;
 import Excepciones.ErrorConexionBaseDatosException;
 import Excepciones.ObjetoNoEncontradoException;
 import Excepciones.ObjetoSQLMalGuardadoException;
@@ -15,8 +23,6 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import modelo.Ensayo;
 import modelo.Libro;
 import modelo.Periodico;
@@ -67,8 +73,18 @@ public class PrestamoDAOImpl implements PrestamoDAO{
 
     @Override
     public boolean RegistrarNuevoPrestamo(int idPrestatario, int idPersonalBibliotecario, String idEjemplar) throws RegistroMalFormadoException, ErrorConexionBaseDatosException, PrestatarioSinPrestamosDisponiblesException {
-        if(!validarParametrosDeInsercionPrestamo(idPrestatario, idPersonalBibliotecario, idEjemplar)) {
-            throw new RegistroMalFormadoException("Parametros invalidos");
+        if(!verificarBibliotecario(idPersonalBibliotecario)) {
+            throw new RegistroMalFormadoException("Bibliotecario incorrecto");
+        }
+        try {
+            if(!verificarEjemplar(idEjemplar)){
+                throw new RegistroMalFormadoException("Identificador de ejemplar incorrecto");
+            }
+        } catch (EjemplarPrestadoException ex) {
+            throw new RegistroMalFormadoException("El ejemplar ha sido prestado previamente y no se ha registrado su devolución");
+        }
+        if(!verificarPrestatario(idPrestatario)){
+            throw new RegistroMalFormadoException("Identificador de prestatario incorrecto");
         }
         
         boolean resultado = false;
@@ -116,7 +132,7 @@ public class PrestamoDAOImpl implements PrestamoDAO{
         } catch (SQLException | NullPointerException ex) {
             throw new ErrorConexionBaseDatosException(ex.getMessage());
         } catch (ObjetoNoEncontradoException ex) {
-            Logger.getLogger(PrestamoDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+            throw new RegistroMalFormadoException();
         }
         
         return resultado;
@@ -135,23 +151,46 @@ public class PrestamoDAOImpl implements PrestamoDAO{
         return txtEjemplaresDAO.getTipoEjemplar(idEjemplar);
     }
     
-    private boolean validarParametrosDeInsercionPrestamo(int idPrestatario, int idPersonalBibliotecario, String idEjemplar){
-        boolean prestatarioValido, bibliotecarioValido, ejemplarValido;
-        
-        //verificamos prestatarios
+    
+    //verificaciones
+    @Override
+    public boolean verificarPrestatario(int idPrestatario){
+        boolean prestatarioValido;
         PrestatarioDAO prestatarioDAO = new PrestatarioDAOImpl();
         try {
             Prestatario prestatario = prestatarioDAO.buscarPorIdentificador(idPrestatario);
             prestatarioValido = prestatario.tienesPrestamosDisponibles();
-            PersonalDAO personal = new PersonalDAOImpl();
-            bibliotecarioValido = personal.buscarPorIdentificador(idPrestatario) != null;
-            TextoEjemplaresDAO ejemplaresDAO = new TextoEjemplaresDAOImpl();
-            ejemplarValido = ejemplaresDAO.getDisponiblidad(idEjemplar);
-        } catch (ObjetoNoEncontradoException | ObjetoSQLMalGuardadoException | ErrorConexionBaseDatosException ex) {
-            return false;
+        } catch (ObjetoNoEncontradoException | ObjetoSQLMalGuardadoException | ErrorConexionBaseDatosException | NullPointerException ex) {
+            prestatarioValido = false;
         }
-        
-        return prestatarioValido && bibliotecarioValido && ejemplarValido;
+        return prestatarioValido;
+    }
+    
+    @Override
+    public boolean verificarBibliotecario(int idPersonalBibliotecario){
+        boolean bibliotecarioValido;
+        try {
+            PersonalDAO personal = new PersonalDAOImpl();
+            bibliotecarioValido = personal.buscarPorIdentificador(idPersonalBibliotecario) != null;
+        } catch (ObjetoNoEncontradoException | ObjetoSQLMalGuardadoException | ErrorConexionBaseDatosException ex) {
+            bibliotecarioValido =  false;
+        }
+        return bibliotecarioValido;
+    }
+    
+    @Override
+    public boolean verificarEjemplar(String idEjemplar) throws EjemplarPrestadoException{
+        boolean ejemplarValido;
+        TextoEjemplaresDAO ejemplaresDAO = new TextoEjemplaresDAOImpl();
+        try {
+            ejemplarValido = ejemplaresDAO.getDisponiblidad(idEjemplar);
+            if(!ejemplarValido){
+                throw new EjemplarPrestadoException();
+            }
+        } catch (ObjetoNoEncontradoException ex) {
+            ejemplarValido = false;
+        }
+        return ejemplarValido;
     }
 
 }

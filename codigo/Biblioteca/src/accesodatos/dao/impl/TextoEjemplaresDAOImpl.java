@@ -1,3 +1,10 @@
+/*
+Autor:Missael Hernandez Rosado
+Fecha de creación: 07/05/2016
+Fecha de Modificación:09/05/2016
+Descripción: Esta clase implementa las funciones de su respectivo DAO, TextoEjemplares.
+*/
+
 package accesodatos.dao.impl;
 
 import Excepciones.ErrorActualizarException;
@@ -59,7 +66,7 @@ public class TextoEjemplaresDAOImpl implements TextoEjemplaresDAO {
     }
 
     @Override
-    public boolean getDisponiblidad(String idEjemplar) {
+    public boolean getDisponiblidad(String idEjemplar) throws ObjetoNoEncontradoException{
         boolean resultado = false;
         
         try {
@@ -68,10 +75,13 @@ public class TextoEjemplaresDAOImpl implements TextoEjemplaresDAO {
             sentencia = connection.prepareStatement("SELECT disponible FROM mydb.TBTextoEjemplares where idejemplar = ?");
             sentencia.setString(1, idEjemplar);
             resultados = sentencia.executeQuery();
-            resultados.first();
-            resultado = resultados.getBoolean(1);
+            if(resultados.first())
+                resultado = resultados.getBoolean(1);
+            else
+                throw new ObjetoNoEncontradoException();
         } catch (SQLException | NullPointerException ex) { 
             System.out.println(ex.getMessage());
+            throw new ObjetoNoEncontradoException("Error de conexion en la base de datos");
         }
         
         return resultado;

@@ -9,7 +9,7 @@ package modelo;
 public class Adquisicion {
 
     private String fechadeAdquisicion;
-    private boolean metodoDeAdquisicion; //Seran diferentes tipos de adquisiciones predefinidas, ej: donacion, comprar
+    private boolean metodoDeAdquisicion; //Seran diferentes tipos de adquisiciones predefinidas, ej: donacion, compra
     private Item item;
     private Donacion donacion;
 

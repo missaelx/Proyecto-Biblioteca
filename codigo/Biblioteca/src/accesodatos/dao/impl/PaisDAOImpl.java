@@ -1,3 +1,10 @@
+/*
+Autor:Missael Hernandez Rosado
+Fecha de creación: 07/05/2016
+Fecha de Modificación:09/05/2016
+Descripción: Esta clase implementa las funciones de su respectivo DAO, Pais.
+*/
+
 package accesodatos.dao.impl;
 
 import Excepciones.ErrorConexionBaseDatosException;
@@ -5,15 +12,12 @@ import Excepciones.ObjetoNoEncontradoException;
 import Excepciones.ObjetoSQLMalGuardadoException;
 import accesodatos.Conexion;
 import accesodatos.dao.PaisDAO;
-import accesodatos.dao.TBAutorDAO;
 import accesodatos.dao.TBPaisDAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *

@@ -1,3 +1,10 @@
+/*
+Autor:Missael Hernandez Rosado
+Fecha de creación: 07/05/2016
+Fecha de Modificación:09/05/2016
+Descripción: Esta clase implementa las funciones de su respectivo DAO, Autor.
+*/
+
 package accesodatos.dao.impl;
 
 import Excepciones.ErrorConexionBaseDatosException;

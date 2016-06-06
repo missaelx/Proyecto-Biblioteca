@@ -1,3 +1,10 @@
+/*
+Autor:Missael Hernandez Rosado
+Fecha de creación: 07/05/2016
+Fecha de Modificación:09/05/2016
+Descripción: Esta clase implementa las funciones de su respectivo DAO, Personal.
+*/
+
 package accesodatos.dao.impl;
 
 import Excepciones.ErrorConexionBaseDatosException;
@@ -7,13 +14,9 @@ import accesodatos.Conexion;
 import accesodatos.dao.PersonalDAO;
 import accesodatos.dao.TBTiposPersonalDAO;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import modelo.DatosPersona;
 import modelo.Personal;
 
